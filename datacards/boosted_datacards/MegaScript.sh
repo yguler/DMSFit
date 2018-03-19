@@ -2,6 +2,7 @@
 
 echo "Launching Megascript"
 sleep 3
+#
 sh run_combineMassBin.sh
 rm MASS/*
 scp mass0/combine_mass0.txt mass1/combine_mass1.txt mass2/combine_mass2.txt mass3/combine_mass3.txt MASS
