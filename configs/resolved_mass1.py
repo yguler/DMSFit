@@ -24,7 +24,7 @@ systematics=["btag","mistag"]
 
 #  OPTIONAL --> 'extra_cuts': additional cuts maybe specific to this control region (eg ptpho cuts) if this key is missing, the code will not complain   
  
-boosted_doublebp_mass1_category = {
+boosted_bp_mass1_category = {
 	    'name':"boosted_mass1"
             ,'in_file_name':"/uscms_data/d1/shoh/panda/v_8029_DarkHiggs_v2/flat/limits/fittingForest_all.root"
             ,"cutstring":"n2ddt56<0 && fjmass>60 && fjmass<105"
@@ -128,7 +128,7 @@ boosted_doublebp_mass1_category = {
 		  ,"Data_wen"                  :['singleelectronw','data',0,0]
     }
 }
-boosted_doublebf_mass1_category = {
+boosted_bf_mass1_category = {
 	    'name':"boosted_mass1_fail"
             ,'in_file_name':"/uscms_data/d1/shoh/panda/v_8029_DarkHiggs_v2/flat/limits/fittingForest_all.root"
             ,"cutstring":"n2ddt56<0 && fjmass>75 && fjmass<100"
@@ -225,4 +225,4 @@ boosted_doublebf_mass1_category = {
 
     }
 }
-categories = [boosted_doublebp_mass1_category,boosted_doublebf_mass1_category]
+categories = [boosted_bp_mass1_category,boosted_bf_mass1_category]
