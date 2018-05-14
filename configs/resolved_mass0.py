@@ -132,7 +132,7 @@ resolved_bf_mass0_category = {
 	    'name':"resolved_mass0_fail"
             ,'in_file_name':"/uscms_data/d1/shoh/panda/v_8029_DarkHiggs_v2/flat/limits/fittingForest_all.root"
             #,"cutstring":"n2ddt56<0 && fjmass>50 && fjmass<75"
-            ,"cutstring":"n2ddt56<0 && fjmass>25 && fjmass<75"
+            ,"cutstring":"n2ddt56<0 && fjmass>0 && fjmass<60"
             ,"varstring":["min(999.9999,met)",200,1000]
        	    ,"weightname":"weight"
 	    ,"bins":bins[:]
