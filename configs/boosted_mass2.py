@@ -27,7 +27,7 @@ systematics=["btag","mistag"]
 boosted_doublebp_mass2_category = {
 	    'name':"boosted_mass2"
             ,'in_file_name':"/uscms_data/d1/shoh/panda/v_8029_DarkHiggs_v2/flat/limits/fittingForest_all.root"
-            ,"cutstring":"n2ddt56<0 && fjmass>100 && fjmass<150"
+            ,"cutstring":"n2ddt56<0 && fjmass>105 && fjmass<150"
             ,"varstring":["min(999.9999,met)",200,1000]
        	    ,"weightname":"weight"
 	    ,"bins":bins[:]

@@ -1,7 +1,7 @@
 # Configuration for a simple monojet topology. Use this as a template for your own Run-2 mono-X analysis
 
 # First provide ouput file name in out_file_name field 
-out_file_name = 'boosted-mass1.root'
+out_file_name = 'resolved-mass3.root'
 
 # can define any thing useful here which may be common to several categories, eg binning in MET 
 bins = [250,270,350,475,1000]
@@ -24,10 +24,10 @@ systematics=["btag","mistag"]
 
 #  OPTIONAL --> 'extra_cuts': additional cuts maybe specific to this control region (eg ptpho cuts) if this key is missing, the code will not complain   
  
-boosted_doublebp_mass1_category = {
-	    'name':"boosted_mass1"
+resolved_bp_mass3_category = {
+	    'name':"resolved_mass3"
             ,'in_file_name':"/uscms_data/d1/shoh/panda/v_8029_DarkHiggs_v2/flat/limits/fittingForest_all.root"
-            ,"cutstring":"n2ddt56<0 && fjmass>60 && fjmass<105"
+            ,"cutstring":"n2ddt56<0 && fjmass>150 && fjmass<3000"
             ,"varstring":["min(999.9999,met)",200,1000]
        	    ,"weightname":"weight"
 	    ,"bins":bins[:]
@@ -45,8 +45,7 @@ boosted_doublebp_mass1_category = {
 		  ,"ST_signal"                 :['signal','stop',1,0]
 		  ,"QCD_signal"		       :['signal','qcd',1,0]
 		  ,"Data_signal"	       :['signal','data',0,0]
-
-                  # signals                                                                                                                   
+                  # signals                                                                                     
                   ,"hsDM_1000_50_100_signal"    :['signal','hsDM-1000-50-100_signal',1,1]
                   ,"hsDM_1000_50_200_signal"    :['signal','hsDM-1000-50-200_signal',1,1]
                   ,"hsDM_1000_50_250_signal"    :['signal','hsDM-1000-50-250_signal',1,1]
@@ -128,10 +127,10 @@ boosted_doublebp_mass1_category = {
 		  ,"Data_wen"                  :['singleelectronw','data',0,0]
     }
 }
-boosted_doublebf_mass1_category = {
-	    'name':"boosted_mass1_fail"
+resolved_bf_mass3_category = {
+	    'name':"resolved_mass3_fail"
             ,'in_file_name':"/uscms_data/d1/shoh/panda/v_8029_DarkHiggs_v2/flat/limits/fittingForest_all.root"
-            ,"cutstring":"n2ddt56<0 && fjmass>75 && fjmass<100"
+            ,"cutstring":"n2ddt56<0 && fjmass>150 && fjmass<3000"
             ,"varstring":["min(999.9999,met)",200,1000]
        	    ,"weightname":"weight"
 	    ,"bins":bins[:]
@@ -149,8 +148,7 @@ boosted_doublebf_mass1_category = {
 		  ,"ST_signal_fail"                 :['signal','stop',1,0]
 		  ,"QCD_signal_fail"		       :['signal','qcd',1,0]
 		  ,"Data_signal_fail"	       :['signal','data',0,0]
-
-                    # signals                                                                                                                                      
+                  #signal
                   ,"hsDM_1000_50_100_signal_fail"    :['signal','hsDM-1000-50-100_signal',1,1]
                   ,"hsDM_1000_50_200_signal_fail"    :['signal','hsDM-1000-50-200_signal',1,1]
                   ,"hsDM_1000_50_250_signal_fail"    :['signal','hsDM-1000-50-250_signal',1,1]
@@ -225,4 +223,4 @@ boosted_doublebf_mass1_category = {
 
     }
 }
-categories = [boosted_doublebp_mass1_category,boosted_doublebf_mass1_category]
+categories = [resolved_bp_mass3_category,resolved_bf_mass3_category]
