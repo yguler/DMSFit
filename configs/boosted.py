@@ -24,7 +24,7 @@ out_file_name = 'boosted.root'
 boosted_category = {}
 categories = []
 
-for mass in [0,len(cutstrings)-1]:
+for mass in range(0,len(cutstrings)-1):
     for s in ['doublebp','doublebf']:
         boosted_category[s+str(mass)] = {
              'name':"boosted_"+s+"mass"+str(mass)
