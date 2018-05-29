@@ -20,13 +20,13 @@
 bins = [250,270,350,475,1000]
 systematics=["btag","mistag"]
 cutstrings=["n2ddt56<0 && fjmass>0 && fjmass<60","n2ddt56<0 && fjmass>60 && fjmass<105","n2ddt56<0 && fjmass>105 && fjmass<150","n2ddt56<0 && fjmass>150 && fjmass<3000"]
+out_file_name = 'boosted.root'
+boosted_category = {}
+categories = []
 
 for mass in [0,len(cutstrings)-1]:
-    out_file_name = 'boosted-mass'+str(mass)+'.root'
-    boosted_category = {}
-    categories = []
     for s in ['doublebp','doublebf']:
-        boosted_category[s] = {
+        boosted_category[s+str(mass)] = {
              'name':"boosted_"+s+"mass"+str(mass)
             ,'in_file_name':"/uscms/home/naina25/nobackup/Panda_2018/Panda_Analysis/CMSSW_8_0_29/src/PandaAnalysis/SuperMonoJet/fitting/fittingForest_boosted_"+s+".root"
             ,"cutstring":cutstrings[mass]
@@ -129,4 +129,4 @@ for mass in [0,len(cutstrings)-1]:
 		  ,"Data_wen"                  :['singleelectronw','data',0,0]
                   }
              }
-        categories.append(boosted_category[s])
+        categories.append(boosted_category[s+str(mass)])
