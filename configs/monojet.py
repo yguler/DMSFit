@@ -1,5 +1,4 @@
-# Configuration for a simple monojet topology. Use this as a template for your own Run-2 mono-X analysis
-# First provide ouput file name in out_file_name field 
+
 
 
 out_file_name = 'monojet_temp.root'
@@ -14,19 +13,18 @@ systematics=["btag","mistag"]
 monojet_category = {}
 
 for s in ['0tag','1tag', '2tag']:
-
      monojet_category[s] = {
-        'name':"monojet"
+        'name':"monojet_"+s
         #,'in_file_name':"/uscms_data/d1/shoh/panda/v_8029_DarkHiggs_v2/flat/limits/fittingForest_monojet_"+s+".root"
         ,'in_file_name':"/uscms/home/naina25/nobackup/Panda_2018/Panda_Analysis/CMSSW_8_0_29/src/PandaAnalysis/SuperMonoJet/fitting/fittingForest_monojet_"+s+".root"
-       # ,"cutstring":"met > 250 && met < 10000"
+        ,"cutstring":""
         ,"varstring":["min(999.9999,met)",250,1000]
         ,"weightname":"weight"
         ,"bins":bins[:]
         ,"additionalvars":[]
         ,"pdfmodel":0
 	,"samples":
-	   	{  
+             {  
 		  # Signal Region
 #		   "VH_signal"    	       :['signal','vh',1,0]
 		  "Zvv_signal"    	       :['signal','zjets',1,0]
@@ -117,6 +115,10 @@ for s in ['0tag','1tag', '2tag']:
 		  ,"ST_wen"                    :['singleelectronw','stop',1,0]
 		  ,"QCD_wen"                   :['singleelectronw','qcd',1,0]
 		  ,"Data_wen"                  :['singleelectronw','data',0,0]
-    }
+                  }
+
 }
-categories = [monojet_category[0tag],monojet_category[1tag],monojet_category[2tag]]
+#monojet_0tag_category = monojet_category["0tag"]
+#monojet_1tag_category = monojet_category["1tag"]
+#monojet_2tag_category = monojet_category["2tag"]
+categories = [monojet_category['0tag'], monojet_category['1tag'], monojet_category['2tag']]
