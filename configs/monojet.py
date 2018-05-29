@@ -128,4 +128,4 @@ for s in ['0tag','1tag', '2tag']:
                   }
 
         }
-     categories = [monojet_category[s]]
+     categories.append(monojet_category[s])
