@@ -24,7 +24,7 @@ boosted_category = {}
 
 for mass in [0,len(cutstrings)-1]:
     out_file_name = 'boosted-mass'+str(mass)+'.root'
-
+    categories = []
     for s in ['doublebp','doublebf']:
         boosted_category[s] = {
              'name':"boosted_"+s+"mass"+str(mass)
@@ -129,4 +129,4 @@ for mass in [0,len(cutstrings)-1]:
 		  ,"Data_wen"                  :['singleelectronw','data',0,0]
                   }
              }
-        categories = [boosted_category[s]]
+        categories.append(boosted_category[s])

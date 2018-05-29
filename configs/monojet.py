@@ -21,6 +21,7 @@ bins = [250.0, 280.0, 310.0, 340.0, 370.0, 400.0, 430.0, 470.0, 510.0, 550.0, 59
 systematics=["btag","mistag"]
 monojet_category = {}
 out_file_name = 'monojet.root'
+categories = []
 
 for s in ['0tag','1tag', '2tag']:
      monojet_category[s] = {
