@@ -5,7 +5,7 @@ from optparse import OptionParser
 
 parser = OptionParser()
 parser.add_option("","--skip",default=False,action='store_true',help="Ignore missing samples rather than failing")
-parser.add_option("","--mass",type=str,default="0")
+parser.add_option("","--mass",type=str,default=None)
 (options,args) = parser.parse_args()
 
 
