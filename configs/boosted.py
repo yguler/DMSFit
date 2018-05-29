@@ -22,13 +22,13 @@ systematics=["btag","mistag"]
 cutstrings=["n2ddt56<0 && fjmass>0 && fjmass<60","n2ddt56<0 && fjmass>60 && fjmass<105","n2ddt56<0 && fjmass>105 && fjmass<150","n2ddt56<0 && fjmass>150 && fjmass<3000"]
 boosted_category = {}
 
-for mass in [0,cutstrings.size()]:
-    out_file_name = 'boosted-mass'+mass+'.root'
+for mass in [0,len(cutstrings)-1]:
+    out_file_name = 'boosted-mass'+str(mass)+'.root'
 
     for s in ['doublebp','doublebf']:
         boosted_category[s] = {
              'name':"boosted_"+s+"mass"+str(mass)
-            ,'in_file_name':"/uscms_data/d1/shoh/panda/v_8029_DarkHiggs_v2/flat/limits/fittingForest_all.root"
+            ,'in_file_name':"/uscms/home/naina25/nobackup/Panda_2018/Panda_Analysis/CMSSW_8_0_29/src/PandaAnalysis/SuperMonoJet/fitting/fittingForest_boosted_"+s+".root"
             ,"cutstring":cutstrings[mass]
             ,"varstring":["min(999.9999,met)",250,1000]
        	    ,"weightname":"weight"
