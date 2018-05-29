@@ -20,10 +20,10 @@
 bins = [250,270,350,475,1000]
 systematics=["btag","mistag"]
 cutstrings=["n2ddt56<0 && fjmass>0 && fjmass<60","n2ddt56<0 && fjmass>60 && fjmass<105","n2ddt56<0 && fjmass>105 && fjmass<150","n2ddt56<0 && fjmass>150 && fjmass<3000"]
-boosted_category = {}
 
 for mass in [0,len(cutstrings)-1]:
     out_file_name = 'boosted-mass'+str(mass)+'.root'
+    boosted_category = {}
     categories = []
     for s in ['doublebp','doublebf']:
         boosted_category[s] = {
