@@ -1,7 +1,7 @@
 # Configuration for a simple monojet topology. Use this as a template for your own Run-2 mono-X analysis
 
 # First provide ouput file name in out_file_name field 
-out_file_name = 'boosted-mass0.root'
+out_file_name = 'boosted-mass'+mass+'.root'
 
 # can define any thing useful here which may be common to several categories, eg binning in MET 
 bins = [250,270,350,475,1000]
@@ -23,12 +23,15 @@ systematics=["btag","mistag"]
 #		TreeName : ['region','process',isMC,isSignal] --> Note isSignal means DM/Higgs etc for signal region but Z-jets/W-jets for the di/single-muon regions !!!
 
 #  OPTIONAL --> 'extra_cuts': additional cuts maybe specific to this control region (eg ptpho cuts) if this key is missing, the code will not complain   
- 
-boosted_doublebp_mass0_category = {
-	    'name':"boosted_mass0"
+cutstrings=["n2ddt56<0 && fjmass>0 && fjmass<60","n2ddt56<0 && fjmass>60 && fjmass<105","n2ddt56<0 && fjmass>105 && fjmass<150","n2ddt56<0 && fjmass>150 && fjmass<3000"]
+
+boosted_category = {}
+
+for s in ['doublebp','doublebf']:
+    boosted_category[s] = {
+             'name':"boosted_"+s+"mass"+str(mass)
             ,'in_file_name':"/uscms_data/d1/shoh/panda/v_8029_DarkHiggs_v2/flat/limits/fittingForest_all.root"
-            #,"cutstring":"n2ddt56<0 && fjmass>50 && fjmass<75"
-            ,"cutstring":"n2ddt56<0 && fjmass>0 && fjmass<60"
+            ,"cutstring":cutstrings[mass]
             ,"varstring":["min(999.9999,met)",200,1000]
        	    ,"weightname":"weight"
 	    ,"bins":bins[:]
@@ -126,104 +129,6 @@ boosted_doublebp_mass0_category = {
 		  ,"ST_wen"                    :['singleelectronw','stop',1,0]
 		  ,"QCD_wen"                   :['singleelectronw','qcd',1,0]
 		  ,"Data_wen"                  :['singleelectronw','data',0,0]
-    }
-}
-boosted_doublebf_mass0_category = {
-	    'name':"boosted_mass0_fail"
-            ,'in_file_name':"/uscms_data/d1/shoh/panda/v_8029_DarkHiggs_v2/flat/limits/fittingForest_all.root"
-            #,"cutstring":"n2ddt56<0 && fjmass>50 && fjmass<75"
-            ,"cutstring":"n2ddt56<0 && fjmass>25 && fjmass<75"
-            ,"varstring":["min(999.9999,met)",200,1000]
-       	    ,"weightname":"weight"
-	    ,"bins":bins[:]
-	    ,"additionalvars":[]
-            ,"pdfmodel":0
-	    ,"samples":
-	   	{  
-		  # signal fail 
-#		  ,"VH_signal"    	       :['signal','vh',1,0]
-		  "Zvv_signal_fail"    	       :['signal','zjets',1,0]
-                  ,"Zll_signal_fail"	               :['signal','zll',1,0]
- 		  ,"Wlv_signal_fail"  	       :['signal','wjets',1,0]
-		  ,"Diboson_signal_fail"  	       :['signal','dibosons',1,0]
-		  ,"ttbar_signal_fail"   	       :['signal','ttbar',1,0]
-		  ,"ST_signal_fail"                 :['signal','stop',1,0]
-		  ,"QCD_signal_fail"		       :['signal','qcd',1,0]
-		  ,"Data_signal_fail"	       :['signal','data',0,0]
-                  #signal
-                  ,"hsDM_1000_50_100_signal_fail"    :['signal','hsDM-1000-50-100_signal',1,1]
-                  ,"hsDM_1000_50_200_signal_fail"    :['signal','hsDM-1000-50-200_signal',1,1]
-                  ,"hsDM_1000_50_250_signal_fail"    :['signal','hsDM-1000-50-250_signal',1,1]
-                  ,"hsDM_1000_50_300_signal_fail"    :['signal','hsDM-1000-50-300_signal',1,1]
-
-                  ,"ZpDM_1000_150_10_signal_fail"    :['signal','ZpDM-1000-150-10_signal',1,1]
-                  ,"ZpDM_1000_50_10_signal_fail"    :['signal','ZpDM-1000-50-10_signal',1,1]
-                  ,"ZpDM_100_150_10_signal_fail"    :['signal','ZpDM-100-150-10_signal',1,1]
-                  ,"ZpDM_100_50_10_signal_fail"    :['signal','ZpDM-100-50-10_signal',1,1]
-                  ,"ZpDM_1500_150_10_signal_fail"    :['signal','ZpDM-1500-150-10_signal',1,1]
-                  ,"ZpDM_1500_50_10_signal_fail"    :['signal','ZpDM-1500-50-10_signal',1,1]
-                  ,"ZpDM_2000_150_10_signal_fail"    :['signal','ZpDM-2000-150-10_signal',1,1]
-                  ,"ZpDM_2000_50_10_signal_fail"    :['signal','ZpDM-2000-50-10_signal',1,1]
-                  ,"ZpDM_2500_150_10_signal_fail"    :['signal','ZpDM-2500-150-10_signal',1,1]
-                  ,"ZpDM_3000_150_10_signal_fail"    :['signal','ZpDM-3000-150-10_signal',1,1]
-                  ,"ZpDM_3000_50_10_signal_fail"    :['signal','ZpDM-3000-50-10_signal',1,1]
-                  ,"ZpDM_300_150_10_signal_fail"    :['signal','ZpDM-300-150-10_signal',1,1]
-
-
-		  # Di muon-Control_fail
-                  ,"Zll_zmm_fail"	       :['dimuon','zll',1,1]
- 		  ,"Wlv_zmm_fail"      	       :['dimuon','wjets',1,0]
-		  ,"Diboson_zmm_fail" 	       :['dimuon','dibosons',1,0]
-		  ,"ttbar_zmm_fail"    	       :['dimuon','ttbar',1,0]
-		  ,"ST_zmm_fail"               :['dimuon','stop',1,0]
-		  ,"QCD_zmm_fail"              :['dimuon','qcd',1,0]
-		  ,"Data_zmm_fail"    	       :['dimuon','data',0,0]
-
-		  # Single muon (top) fail control
-                  ,"Zll_tmn_fail"       	       :['singlemuontop','zll',1,0]
- 		  ,"Wlv_tmn_fail"               :['singlemuontop','wjets',1,0]
-		  ,"Diboson_tmn_fail"           :['singlemuontop','dibosons',1,0]
-		  ,"ttbar_tmn_fail"             :['singlemuontop','ttbar',1,1]
-		  ,"ST_tmn_fail"                :['singlemuontop','stop',1,0]
-		  ,"QCD_tmn_fail"               :['singlemuontop','qcd',1,0]
-		  ,"Data_tmn_fail"     	       :['singlemuontop','data',0,0]
-
-                   # Single muon (w) fail control
-                  ,"Zll_wmn_fail"     	       :['singlemuonw','zll',1,0]
- 		  ,"Wlv_wmn_fail"      	       :['singlemuonw','wjets',1,0]
-		  ,"Diboson_wmn_fail"          :['singlemuonw','dibosons',1,0]
-		  ,"ttbar_wmn_fail"            :['singlemuonw','ttbar',1,0]
-		  ,"ST_wmn_fail"               :['singlemuonw','stop',1,0]
-		  ,"QCD_wmn_fail"              :['singlemuonw','qcd',1,0]
-		  ,"Data_wmn_fail"             :['singlemuonw','data',0,0]
-
-		  # Di electron-Control_fail
-                  ,"Zll_zee_fail"	       :['dielectron','zll',1,0]
- 		  ,"Wlv_zee_fail"  	       :['dielectron','wjets',1,0]
-		  ,"Diboson_zee_fail"          :['dielectron','dibosons',1,0]
-		  ,"ttbar_zee_fail"            :['dielectron','ttbar',1,0]
-		  ,"ST_zee_fail"               :['dielectron','stop',1,0]
-		  ,"QCD_zee_fail"              :['dielectron','qcd',1,0]
-		  ,"Data_zee_fail"	       :['dielectron','data',0,0]
-
-		  # Single electron (top) fail control
-                  ,"Zll_ten_fail"               :['singleelectrontop','zll',1,0]
-                  ,"Wlv_ten_fail"               :['singleelectrontop','wjets',1,0]
-		  ,"Diboson_ten_fail"           :['singleelectrontop','dibosons',1,0]
-		  ,"ttbar_ten_fail"             :['singleelectrontop','ttbar',1,0]
-		  ,"ST_ten_fail"                :['singleelectrontop','stop',1,0]
-		  ,"QCD_ten_fail"               :['singleelectrontop','qcd',1,0]
-		  ,"Data_ten_fail"              :['singleelectrontop','data',0,0]
-
-                   # Single electron (w) fail control
-                  ,"Zll_wen_fail"              :['singleelectronw','zll',1,0]
- 		  ,"Wlv_wen_fail"              :['singleelectronw','wjets',1,0]
-		  ,"Diboson_wen_fail"          :['singleelectronw','dibosons',1,0]
-		  ,"ttbar_wen_fail"            :['singleelectronw','ttbar',1,0]
-		  ,"ST_wen_fail"               :['singleelectronw','stop',1,0]
-		  ,"QCD_wen_fail"              :['singleelectronw','qcd',1,0]
-		  ,"Data_wen_fail"             :['singleelectronw','data',0,0]
-
-    }
-}
-categories = [boosted_doublebp_mass0_category,boosted_doublebf_mass0_category]
+                  }
+             }
+    categories = [boosted_category[s]]

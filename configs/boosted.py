@@ -17,24 +17,26 @@
 # Can define anything useful here outside the catefory dictionary which may be common to several categories, eg binning in MET, systematics ecc
 # systematics will expect samples with sample_sys_Up/Down but will skip if not found 
 
-bins = [250.0, 280.0, 310.0, 340.0, 370.0, 400.0, 430.0, 470.0, 510.0, 550.0, 590.0, 640.0, 690.0, 740.0, 790.0, 840.0, 900.0, 960.0, 1020.0, 1090.0, 1160.0, 1250.0]
+bins = [250,270,350,475,1000]
 systematics=["btag","mistag"]
-monojet_category = {}
-out_file_name = 'monojet.root'
+cutstrings=["n2ddt56<0 && fjmass>0 && fjmass<60","n2ddt56<0 && fjmass>60 && fjmass<105","n2ddt56<0 && fjmass>105 && fjmass<150","n2ddt56<0 && fjmass>150 && fjmass<3000"]
+boosted_category = {}
 
-for s in ['0tag','1tag', '2tag']:
-     monojet_category[s] = {
-        'name':"monojet_"+s
-        #,'in_file_name':"/uscms_data/d1/shoh/panda/v_8029_DarkHiggs_v2/flat/limits/fittingForest_monojet_"+s+".root"
-        ,'in_file_name':"/uscms/home/naina25/nobackup/Panda_2018/Panda_Analysis/CMSSW_8_0_29/src/PandaAnalysis/SuperMonoJet/fitting/fittingForest_monojet_"+s+".root"
-        ,"cutstring":""
-        ,"varstring":["min(999.9999,met)",250,1250]
-        ,"weightname":"weight"
-        ,"bins":bins[:]
-        ,"additionalvars":[]
-        ,"pdfmodel":0
-	,"samples":
-             {  
+for mass in [0,cutstrings.size()]:
+    out_file_name = 'boosted-mass'+mass+'.root'
+
+    for s in ['doublebp','doublebf']:
+        boosted_category[s] = {
+             'name':"boosted_"+s+"mass"+str(mass)
+            ,'in_file_name':"/uscms_data/d1/shoh/panda/v_8029_DarkHiggs_v2/flat/limits/fittingForest_all.root"
+            ,"cutstring":cutstrings[mass]
+            ,"varstring":["min(999.9999,met)",250,1000]
+       	    ,"weightname":"weight"
+	    ,"bins":bins[:]
+	    ,"additionalvars":[]
+            ,"pdfmodel":0
+	    ,"samples":
+	   	{  
 		  # Signal Region
 #		   "VH_signal"    	       :['signal','vh',1,0]
 		  "Zvv_signal"    	       :['signal','zjets',1,0]
@@ -126,6 +128,5 @@ for s in ['0tag','1tag', '2tag']:
 		  ,"QCD_wen"                   :['singleelectronw','qcd',1,0]
 		  ,"Data_wen"                  :['singleelectronw','data',0,0]
                   }
-
-        }
-     categories = [monojet_category[s]]
+             }
+        categories = [boosted_category[s]]
