@@ -19,16 +19,16 @@
 
 bins = [250,270,350,475,1000]
 systematics=["btag","mistag"]
-cutstrings=["n2ddt56<0 && mass>0 && mass<60","n2ddt56<0 && mass>60 && mass<105","n2ddt56<0 && mass>105 && mass<150","n2ddt56<0 && mass>150 && mass<3000"]
-boosted_category = {}
+cutstrings=["mass>0 && mass<60","mass>60 && mass<105","mass>105 && mass<150","mass>150 && mass<3000"]
+resolved_category = {}
 categories = []
-out_file_name = 'boosted.root'
+out_file_name = 'resolved.root'
 
 for mass in range(0,len(cutstrings)):
-    for s in ['doublebp','doublebf']:
-        boosted_category[s+str(mass)] = {
-             'name':"boosted_"+s+"_mass"+str(mass)
-            ,'in_file_name':"/uscms/home/naina25/nobackup/Panda_2018/Panda_Analysis/CMSSW_8_0_29/src/PandaAnalysis/SuperMonoJet/fitting/fittingForest_boosted_"+s+".root"
+    for s in ['bp','bf']:
+        resolved_category[s+str(mass)] = {
+             'name':"resolved_"+s+"_mass"+str(mass)
+            ,'in_file_name':"/uscms/home/naina25/nobackup/Panda_2018/Panda_Analysis/CMSSW_8_0_29/src/PandaAnalysis/SuperMonoJet/fitting/fittingForest_resolved_"+s+".root"
             ,"cutstring":cutstrings[mass]
             ,"varstring":["min(999.9999,met)",250,1000]
        	    ,"weightname":"weight"
@@ -129,4 +129,4 @@ for mass in range(0,len(cutstrings)):
 		  ,"Data_wen"                  :['singleelectronw','data',0,0]
                   }
              }
-        categories.append(boosted_category[s+str(mass)])
+        categories.append(resolved_category[s+str(mass)])
