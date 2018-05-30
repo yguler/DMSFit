@@ -7,56 +7,6 @@ convertHistograms = []
 
 ### helper functions ###
 
-def makeTop(cid,_fOut,newName,targetmc,controlmc,systs=None,doSJ=False):
-  TopScales = targetmc.Clone(); TopScales.SetName(newName+"_weights_%s"%cid)
-  TopScales.Divide(controlmc)
-  _fOut.WriteTObject(TopScales)
-
-  if not(systs==None):
-    for uncert in ['btag','mistag']:
-      TopScalesUp = systs['targetmc%sUp'%(uncert)].Clone(); 
-      TopScalesUp.SetName(newName+"_weights_%s_%s_Up"%(cid,uncert))
-      TopScalesUp.Divide(systs['controlmc%sUp'%(uncert)])
-
-      TopScalesDown = systs['targetmc%sDown'%(uncert)].Clone(); TopScalesDown.SetName(newName+"_weights_%s_%s_Down"%(cid,uncert))
-      TopScalesDown.Divide(systs['controlmc%sDown'%(uncert)])
-
-      _fOut.WriteTObject(TopScalesUp)
-      _fOut.WriteTObject(TopScalesDown)
-
-  return TopScales
-
-
-def addTopErrors(TopScales,targetmc,newName,crName,_fOut,CRs,nCR,cid,doBtag=True):
-
-  if doBtag:
-    uncerts = ['btag','mistag']
-    for uncert in uncerts:
-      CRs[nCR].add_nuisance_shape(uncert,_fOut)
-
-  bins = range(targetmc.GetNbinsX())
-
-  for b in bins:
-    err = TopScales.GetBinError(b+1)
-    '''
-    if err > TopScales.GetBinContent(b+1):
-      err = TopScales.GetBinContent(b+1)-0.00001
-      print "BIN CONTENT: " + str(TopScales.GetBinContent(b+1))
-      print "BIN ERROR: " + str(TopScales.GetBinError(b+1))
-      print "NEW ERROR: " + str(err)
-    '''
-    if not TopScales.GetBinContent(b+1)>0: continue 
-    else: relerr = err/TopScales.GetBinContent(b+1)
-    if relerr<0.001: continue
-    byb_u = TopScales.Clone(); byb_u.SetName("%s_weights_%s_%s_stat_error_%sCR_bin%d_Up"%(newName,cid,cid,crName,b))
-    byb_u.SetBinContent(b+1,TopScales.GetBinContent(b+1)+err)
-    byb_d = TopScales.Clone(); byb_d.SetName("%s_weights_%s_%s_stat_error_%sCR_bin%d_Down"%(newName,cid,cid,crName,b))
-    byb_d.SetBinContent(b+1,TopScales.GetBinContent(b+1)-err)
-    _fOut.WriteTObject(byb_u)
-    _fOut.WriteTObject(byb_d)
-    CRs[nCR].add_nuisance_shape("%s_stat_error_%sCR_bin%d"%(cid,crName,b),_fOut)
-
-
 def cmodel(cid,nam,_f,_fOut, out_ws, diag):
   # Some setup
   _fin = _f.Get("category_%s"%cid)
@@ -73,43 +23,17 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
   targetmc     = _fin.Get("signal_ttbar")      # define monimal (MC) of which process this config will model
   controlmc    = _fin.Get("singlemuontop_ttbar")
   controlmc_e  = _fin.Get("singleelectrontop_ttbar")
-  controlmc_w    = _fin.Get("singlemuonw_ttbar")
-  controlmc_w_e  = _fin.Get("singleelectronw_ttbar")
  
 
-  systs = {}; systs_e = {}
-  systs_w = {}; systs_w_e = {}
-
-  # btag systs
-  systs['targetmcbtagUp']      = _fin.Get("signal_ttbar_btagUp");           systs_e['targetmcbtagUp']      = systs['targetmcbtagUp']
-  systs['targetmcbtagDown']    = _fin.Get("signal_ttbar_btagDown");         systs_e['targetmcbtagDown']    = systs['targetmcbtagDown']
-  systs['controlmcbtagUp']     = _fin.Get("singlemuontop_ttbar_btagUp");    systs_e['controlmcbtagUp']     = _fin.Get("singleelectrontop_ttbar_btagUp")
-  systs['controlmcbtagDown']   = _fin.Get("singlemuontop_ttbar_btagDown");  systs_e['controlmcbtagDown']   = _fin.Get("singleelectrontop_ttbar_btagDown")
-  
-  systs_w['targetmcbtagUp']      = _fin.Get("signal_ttbar_btagUp");           systs_w_e['targetmcbtagUp']      = systs_w['targetmcbtagUp']
-  systs_w['targetmcbtagDown']    = _fin.Get("signal_ttbar_btagDown");         systs_w_e['targetmcbtagDown']    = systs_w['targetmcbtagDown']
-  systs_w['controlmcbtagUp']     = _fin.Get("singlemuonw_ttbar_btagUp");      systs_w_e['controlmcbtagUp']     = _fin.Get("singleelectronw_ttbar_btagUp")
-  systs_w['controlmcbtagDown']   = _fin.Get("singlemuonw_ttbar_btagDown");    systs_w_e['controlmcbtagDown']   = _fin.Get("singleelectronw_ttbar_btagDown")
-
-  # mistag systs
-  systs['targetmcmistagUp']      = _fin.Get("signal_ttbar_mistagUp");           systs_e['targetmcmistagUp']      = systs['targetmcmistagUp']
-  systs['targetmcmistagDown']    = _fin.Get("signal_ttbar_mistagDown");         systs_e['targetmcmistagDown']    = systs['targetmcmistagDown']
-  systs['controlmcmistagUp']     = _fin.Get("singlemuontop_ttbar_mistagUp");    systs_e['controlmcmistagUp']     = _fin.Get("singleelectrontop_ttbar_mistagUp")
-  systs['controlmcmistagDown']   = _fin.Get("singlemuontop_ttbar_mistagDown");  systs_e['controlmcmistagDown']   = _fin.Get("singleelectrontop_ttbar_mistagDown")
-
-  systs_w['targetmcmistagUp']      = _fin.Get("signal_ttbar_mistagUp");           systs_w_e['targetmcmistagUp']      = systs_w['targetmcmistagUp']
-  systs_w['targetmcmistagDown']    = _fin.Get("signal_ttbar_mistagDown");         systs_w_e['targetmcmistagDown']    = systs_w['targetmcmistagDown']
-  systs_w['controlmcmistagUp']     = _fin.Get("singlemuonw_ttbar_mistagUp");      systs_w_e['controlmcmistagUp']     = _fin.Get("singleelectronw_ttbar_mistagUp")
-  systs_w['controlmcmistagDown']   = _fin.Get("singlemuonw_ttbar_mistagDown");    systs_w_e['controlmcmistagDown']   = _fin.Get("singleelectronw_ttbar_mistagDown")
 
   # Create the transfer factors and save them (not here you can also create systematic variations of these 
   # transfer factors (named with extention _sysname_Up/Down
 
-  TopScales      = makeTop(cid,_fOut,"topmn",targetmc,controlmc,systs,False)
-  TopScales_e    = makeTop(cid,_fOut,"topen",targetmc,controlmc_e,systs_e,False)
-  TopScales_w    = makeTop(cid,_fOut,"topwmn",targetmc,controlmc_w,None,False)
-  TopScales_w_e  = makeTop(cid,_fOut,"topwen",targetmc,controlmc_w_e,None,False)
+  TopScales = targetmc.Clone(); TopScales.SetName("topmn_weights_%s"%cid)
+  TopScales.Divide(controlmc); _fOut.WriteTObject(TopScales);
 
+  TopScales_e = targetmc.Clone(); TopScales_e.SetName("topen_weights_%s"%cid)
+  TopScales_e.Divide(controlmc_e); _fOut.WriteTObject(TopScales_e);
 
   #######################################################################################################
 
@@ -126,8 +50,6 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
   CRs = [
    Channel("singlemuontopModel",      _wspace,out_ws,cid+'_'+model,TopScales),
    Channel("singleelectrontopModel",  _wspace,out_ws,cid+'_'+model,TopScales_e),
-   Channel("singlemuonwtopModel",     _wspace,out_ws,cid+'_'+model,TopScales_w),
-   Channel("singleelectronwtopModel", _wspace,out_ws,cid+'_'+model,TopScales_w_e),
   ]
 
 
@@ -136,11 +58,28 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
   # for shapes use add_nuisance_shape with (name,_fOut)
   # note, the code will LOOK for something called NOMINAL_name_Up and NOMINAL_name_Down, where NOMINAL=TopScales.GetName()
   # these must be created and writted to the same dirctory as the nominal (fDir)
-  
-  addTopErrors(TopScales,    targetmc,"topmn", "singlemuontopModel",     _fOut,CRs,0,cid)
-  addTopErrors(TopScales_e,  targetmc,"topen", "singleelectrontopModel", _fOut,CRs,1,cid)
-  addTopErrors(TopScales_w,  targetmc,"topwmn","singlemuonwtopModel",    _fOut,CRs,2,cid,False)
-  addTopErrors(TopScales_w_e,targetmc,"topwen","singleelectronwtopModel",_fOut,CRs,3,cid,False)
+ 
+  def addStatErrs(hx,cr,crname1,crname2):
+    for b in range(1,targetmc.GetNbinsX()+1):
+      err = hx.GetBinError(b)
+      if not hx.GetBinContent(b)>0:
+        continue
+      relerr = err/hx.GetBinContent(b)
+      if relerr<0.01:
+        continue
+      byb_u = hx.Clone(); byb_u.SetName('%s_weights_%s_%s_stat_error_%s_bin%d_Up'%(crname1,cid,cid,crname2,b-1))
+      byb_u.SetBinContent(b,hx.GetBinContent(b)+err)
+      byb_d = hx.Clone(); byb_d.SetName('%s_weights_%s_%s_stat_error_%s_bin%d_Down'%(crname1,cid,cid,crname2,b-1))
+      if err<hx.GetBinContent(b):
+        byb_d.SetBinContent(b,hx.GetBinContent(b)-err)
+      else:
+        byb_d.SetBinContent(b,0)
+      _fOut.WriteTObject(byb_u)
+      _fOut.WriteTObject(byb_d)
+      cr.add_nuisance_shape('%s_stat_error_%s_bin%d'%(cid,crname2,b-1),_fOut)
+
+  addStatErrs(TopScales,CRs[0],'topmn','singlemuontopModel')
+  addStatErrs(TopScales_e,CRs[1],'topen','singleelectrontopModel')
 
   #######################################################################################################
 
