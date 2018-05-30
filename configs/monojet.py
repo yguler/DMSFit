@@ -86,27 +86,23 @@ for s in ['0tag','1tag', '2tag']:
                   ,"QCD_zee"                   :['dielectron','qcd',1,0]
                   ,"Data_zee"                  :['dielectron','data',0,0]
 
-		  # Single muon (top) control
-#                  ,"VH_tm"                     :['singlemuontop','vh',1,0] 
-#                  ,"ttH_tm"                    :['singlemuontop','tth',1,0] 
-                  ,"Zll_tmn"       	       :['singlemuontop','zll',1,0]
- 		  ,"Wlv_tmn"                    :['singlemuontop','wjets',1,0]
-		  ,"Diboson_tmn"                :['singlemuontop','dibosons',1,0]
-		  ,"ttbar_tmn"                  :['singlemuontop','ttbar',1,1]
-		  ,"ST_tmn"                     :['singlemuontop','stop',1,0]
-		  ,"QCD_tmn"                    :['singlemuontop','qcd',1,0]
-		  ,"Data_tmn"        	       :['singlemuontop','data',0,0]
+                   # two leptons (ttbar)m control
+                  ,"Zll_tme"                   :['muonelectron','zll',1,0]
+                  ,"Wlv_tme"                   :['muonelectron','wjets',1,0]
+                  ,"Diboson_tme"               :['muonelectron','dibosons',1,0]
+                  ,"ttbar_tme"                 :['muonelectron','ttbar',1,1]
+                  ,"ST_tme"                    :['muonelectron','stop',1,0]
+                  ,"QCD_tme"                   :['muonelectron','qcd',1,0]
+                  ,"Data_tme"                  :['muonelectron','data',0,0]
 
-		  # Single electron (top) control
-#                  ,"VH_te"                     :['singleelectrontop','vh',1,0] 
-#                  ,"ttH_te"                    :['singleelectrontop','tth',1,0] 
-                  ,"Zll_ten"                    :['singleelectrontop','zll',1,0]
-                  ,"Wlv_ten"                    :['singleelectrontop','wjets',1,0]
-		  ,"Diboson_ten"                :['singleelectrontop','dibosons',1,0]
-		  ,"ttbar_ten"                  :['singleelectrontop','ttbar',1,1]
-		  ,"ST_ten"                     :['singleelectrontop','stop',1,0]
-		  ,"QCD_ten"                    :['singleelectrontop','qcd',1,0]
-		  ,"Data_ten"                   :['singleelectrontop','data',0,0]
+                   # two leptons (ttbar)e control
+                  ,"Zll_tem"                    :['electronmuon','zll',1,0]
+                  ,"Wlv_tem"                    :['electronmuon','wjets',1,0]
+                  ,"Diboson_tem"                :['electronmuon','dibosons',1,0]
+                  ,"ttbar_tem"                  :['electronmuon','ttbar',1,1]
+                  ,"ST_tem"                     :['electronmuon','stop',1,0]
+                  ,"QCD_tem"                    :['electronmuon','qcd',1,0]
+                  ,"Data_tem"                   :['electronmuon','data',0,0]
 
                    # Single muon (w) control
 #                  ,"VH_wmn"                    :['singlemuonw','vh',1,0] 
