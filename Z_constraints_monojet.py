@@ -17,13 +17,13 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
   # example below for creating shape systematic for photon which is just every bin up/down 30% 
 
   metname    = "met"          # Observable variable name 
-  gvptname   = "genBos_pt"    # Weights are in generator pT
+  gvptname   = "genBosonPt"    # Weights are in generator pT
 
   target             = _fin.Get("signal_zjets")      # define monimal (MC) of which process this config will model
-  controlmc          = _fin.Get("Zmm_zll")           # defines Zmm MC of which process will be controlled by
-  controlmc_photon   = _fin.Get("gjets_gjets")       # defines Gjets MC of which process will be controlled by
-  controlmc_e        = _fin.Get("Zee_zll")           # defines Zmm MC of which process will be controlled by
+  controlmc          = _fin.Get("dimuon_zll")           # defines Zmm MC of which process will be controlled by
+  controlmc_e        = _fin.Get("dielectron_zll")           # defines Zmm MC of which process will be controlled by
   controlmc_w        = _fin.Get("signal_wjets")
+  controlmc_photon   = _fin.Get("singlephoton_gjets")       # defines Gjets MC of which process will be controlled by
 
   # Create the transfer factors and save them (not here you can also create systematic variations of these 
   # transfer factors (named with extention _sysname_Up/Down
@@ -55,10 +55,10 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
   # TRANSFERFACTORS are what is created above, eg WScales
 
   CRs = [
-   Channel("photon",_wspace,out_ws,cid+'_'+model,PhotonScales) 
-  ,Channel("dimuon",_wspace,out_ws,cid+'_'+model,ZmmScales)
+   Channel("dimuon",_wspace,out_ws,cid+'_'+model,ZmmScales)
   ,Channel("dielectron",_wspace,out_ws,cid+'_'+model,ZeeScales)
   ,Channel("wjetssignal",_wspace,out_ws,cid+'_'+model,WZScales)
+  ,Channel("photon",_wspace,out_ws,cid+'_'+model,PhotonScales) 
   ]
 
   # ############################ USER DEFINED ###########################################################
@@ -68,91 +68,46 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
   # these must be created and writted to the same dirctory as the nominal (fDir)
 
   # Bin by bin nuisances to cover statistical uncertainties ...
-  for b in range(target.GetNbinsX()):
-    err = PhotonScales.GetBinError(b+1)
-    #print "ZEYNEP MISSING Z:", b+1, PhotonScales.GetBinContent(b+1), err
-    if not PhotonScales.GetBinContent(b+1)>0: continue 
-    relerr = err/PhotonScales.GetBinContent(b+1)
-    if relerr<0.01: continue
-    byb_u = PhotonScales.Clone(); byb_u.SetName("photon_weights_%s_%s_stat_error_%s_bin%d_Up"%(cid,cid,"photonCR",b))
-    byb_u.SetBinContent(b+1,PhotonScales.GetBinContent(b+1)+err)
-    byb_d = PhotonScales.Clone(); byb_d.SetName("photon_weights_%s_%s_stat_error_%s_bin%d_Down"%(cid,cid,"photonCR",b))
-    byb_d.SetBinContent(b+1,PhotonScales.GetBinContent(b+1)-err)
-    _fOut.WriteTObject(byb_u)
-    _fOut.WriteTObject(byb_d)
-    print "Adding an error -- ", byb_u.GetName(),err , "%s_stat_error_%s_bin%d"%(cid,"photonCR",b)
-    CRs[0].add_nuisance_shape("%s_stat_error_%s_bin%d"%(cid,"photonCR",b),_fOut)
+  def addStatErrs(hx,cr,crname1,crname2):
+    for b in range(1,target.GetNbinsX()+1):
+      err = hx.GetBinError(b)
+      if not hx.GetBinContent(b)>0:
+        continue
+      relerr = err/hx.GetBinContent(b)
+      if relerr<0.01:
+        continue
+      byb_u = hx.Clone(); byb_u.SetName('%s_weights_%s_%s_stat_error_%s_bin%d_Up'%(crname1,cid,cid,crname2,b-1))
+      byb_u.SetBinContent(b,hx.GetBinContent(b)+err)
+      byb_d = hx.Clone(); byb_d.SetName('%s_weights_%s_%s_stat_error_%s_bin%d_Down'%(crname1,cid,cid,crname2,b-1))
+      if err<hx.GetBinContent(b):
+        byb_d.SetBinContent(b,hx.GetBinContent(b)-err)
+      else:
+        byb_d.SetBinContent(b,0)
+      _fOut.WriteTObject(byb_u)
+      _fOut.WriteTObject(byb_d)
+      cr.add_nuisance_shape('%s_stat_error_%s_bin%d'%(cid,crname2,b-1),_fOut)
 
-  for b in range(target.GetNbinsX()):
-    err = ZmmScales.GetBinError(b+1)
-    if not ZmmScales.GetBinContent(b+1)>0: continue 
-    relerr = err/ZmmScales.GetBinContent(b+1)
-    if relerr<0.01: continue
-    byb_u = ZmmScales.Clone(); byb_u.SetName("zmm_weights_%s_%s_stat_error_%s_bin%d_Up"%(cid,cid,"dimuonCR",b))
-    byb_u.SetBinContent(b+1,ZmmScales.GetBinContent(b+1)+err)
-    byb_d = ZmmScales.Clone(); byb_d.SetName("zmm_weights_%s_%s_stat_error_%s_bin%d_Down"%(cid,cid,"dimuonCR",b))
-    if (ZmmScales.GetBinContent(b+1)-err > 0):
-      byb_d.SetBinContent(b+1,ZmmScales.GetBinContent(b+1)-err)
-    else:
-      byb_d.SetBinContent(b+1,1)
-    _fOut.WriteTObject(byb_u)
-    _fOut.WriteTObject(byb_d)
-    print "Adding an error -- ", byb_u.GetName(),err
-    CRs[1].add_nuisance_shape("%s_stat_error_%s_bin%d"%(cid,"dimuonCR",b),_fOut)
-
-  for b in range(target.GetNbinsX()):
-    err = ZeeScales.GetBinError(b+1)
-    if not ZeeScales.GetBinContent(b+1)>0: continue 
-    relerr = err/ZeeScales.GetBinContent(b+1)
-    if relerr<0.01: continue
-    byb_u = ZeeScales.Clone(); byb_u.SetName("zee_weights_%s_%s_stat_error_%s_bin%d_Up"%(cid,cid,"dielectronCR",b))
-    byb_u.SetBinContent(b+1,ZeeScales.GetBinContent(b+1)+err)
-    byb_d = ZeeScales.Clone(); byb_d.SetName("zee_weights_%s_%s_stat_error_%s_bin%d_Down"%(cid,cid,"dielectronCR",b))
-    if (ZeeScales.GetBinContent(b+1)-err > 0):
-      byb_d.SetBinContent(b+1,ZeeScales.GetBinContent(b+1)-err)
-    else:
-      byb_d.SetBinContent(b+1,1)
-    _fOut.WriteTObject(byb_u)
-    _fOut.WriteTObject(byb_d)
-    print "Adding an error -- ", byb_u.GetName(),err
-    CRs[2].add_nuisance_shape("%s_stat_error_%s_bin%d"%(cid,"dielectronCR",b),_fOut)
-
-  for b in range(target.GetNbinsX()):
-    err = WZScales.GetBinError(b+1)
-    if not WZScales.GetBinContent(b+1)>0: continue 
-    relerr = err/WZScales.GetBinContent(b+1)
-    if relerr<0.01: continue
-    byb_u = WZScales.Clone(); byb_u.SetName("w_weights_%s_%s_stat_error_%s_bin%d_Up"%(cid,cid,"wzCR",b))
-    byb_u.SetBinContent(b+1,WZScales.GetBinContent(b+1)+err)
-    byb_d = WZScales.Clone(); byb_d.SetName("w_weights_%s_%s_stat_error_%s_bin%d_Down"%(cid,cid,"wzCR",b))
-    if (WZScales.GetBinContent(b+1)-err > 0):
-      byb_d.SetBinContent(b+1,WZScales.GetBinContent(b+1)-err)
-    else:
-      byb_d.SetBinContent(b+1,1)
-    _fOut.WriteTObject(byb_u)
-    _fOut.WriteTObject(byb_d)
-    print "Adding an error -- ", byb_u.GetName(),err
-    CRs[3].add_nuisance_shape("%s_stat_error_%s_bin%d"%(cid,"wzCR",b),_fOut)
+  addStatErrs(ZmmScales,CRs[0],'zmm','dimuonModelCR')
+  addStatErrs(ZeeScales,CRs[1],'zee','dielectronModelCR')
+  addStatErrs(WZScales,CRs[2],'w','wjetssignal')
+  addStatErrs(PhotonScales,CRs[3],'photon','photonModelCR')
 
 
   #######################################################################################################
-  
-  CRs[0].add_nuisance_shape("renscale",_fOut) 
-  CRs[0].add_nuisance_shape("facscale",_fOut) 
-  CRs[0].add_nuisance_shape("pdf",_fOut) 
-  #CRs[0].add_nuisance("PhotonEff",0.02) 
-  #CRs[1].add_nuisance("DimuonEff",0.02)
-  #CRs[2].add_nuisance("DielEff",0.04)
-  
-  CRs[3].add_nuisance_shape("wrenscale",_fOut)
-  CRs[3].add_nuisance_shape("wfacscale",_fOut)
-  CRs[3].add_nuisance_shape("wpdf",_fOut) 
 
-  #CRs[0].add_nuisance_shape("ewk",_fOut) 
+  CRs[2].add_nuisance_shape("wrenscale",_fOut)
+  CRs[2].add_nuisance_shape("wfacscale",_fOut)
+  CRs[2].add_nuisance_shape("wpdf",_fOut) 
+  
+  CRs[3].add_nuisance_shape("renscale",_fOut) 
+  CRs[3].add_nuisance_shape("facscale",_fOut) 
+  CRs[3].add_nuisance_shape("pdf",_fOut) 
+
+  #CRs[3].add_nuisance_shape("ewk",_fOut) 
   for b in range(target.GetNbinsX()):
     #CRs[0].add_nuisance_shape("ewk_%s_bin%d"%(cid,b),_fOut,"SetTo=1") #Don't undertsand this set to 1
-    CRs[0].add_nuisance_shape("ewk_%s_bin%d"%(cid,b),_fOut)
-    CRs[3].add_nuisance_shape("w_ewk_%s_bin%d"%(cid,b),_fOut)
+    CRs[3].add_nuisance_shape("ewk_%s_bin%d"%(cid,b),_fOut)
+    CRs[2].add_nuisance_shape("w_ewk_%s_bin%d"%(cid,b),_fOut)
 
   #######################################################################################################
 
@@ -164,16 +119,16 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
 def my_function(_wspace,_fin,_fOut,nam,diag):
 
   metname    = "met"          # Observable variable name 
-  gvptname   = "genBos_pt"    # Weights are in generator pT
+  gvptname   = "genBosonPt"    # Weights are in generator pT
 
   target             = _fin.Get("signal_zjets")      # define monimal (MC) of which process this config will model
-  controlmc          = _fin.Get("Zmm_zll")           # defines Zmm MC of which process will be controlled by
-  controlmc_photon   = _fin.Get("gjets_gjets")       # defines Gjets MC of which process will be controlled by
+  controlmc          = _fin.Get("dimuon_zll")           # defines Zmm MC of which process will be controlled by
+  controlmc_photon   = _fin.Get("singlephoton_gjets")       # defines Gjets MC of which process will be controlled by
 
   controlmc_w        = _fin.Get("signal_wjets")
 
-  _gjet_mcname 	     = "gjets_gjets"
-  GJet               = _fin.Get("gjets_gjets")
+  _gjet_mcname 	     = "singlephoton_gjets"
+  GJet               = _fin.Get("singlephoton_gjets")
 
   #fztoa = r.TFile.Open("files/atoz_unc.root")
   fztoa = r.TFile.Open("files/new/atoz_unc.root")
