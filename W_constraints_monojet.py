@@ -31,7 +31,7 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
   WScales_e.Divide(controlmc_e);  _fOut.WriteTObject(WScales_e) 
 
   TTWScales = target.Clone(); TTWScales.SetName("ttbar_weights_%s"%cid)
-  TTWScales.Divide(controlmc_w);  _fOut.WriteTObject(TTWScales)
+  TTWScales.Divide(controlmc_tt);  _fOut.WriteTObject(TTWScales)
 
   #######################################################################################################
 
