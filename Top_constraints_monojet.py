@@ -21,18 +21,18 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
   metname = "met"    # Observable variable name 
 
   targetmc     = _fin.Get("signal_ttbar")      # define monimal (MC) of which process this config will model
-  controlmc    = _fin.Get("singlemuontop_ttbar")
-  controlmc_e  = _fin.Get("singleelectrontop_ttbar")
+  controlmc    = _fin.Get("muonelectron_ttbar")
+  controlmc_e  = _fin.Get("electronmuon_ttbar")
  
 
 
   # Create the transfer factors and save them (not here you can also create systematic variations of these 
   # transfer factors (named with extention _sysname_Up/Down
 
-  TopScales = targetmc.Clone(); TopScales.SetName("topmn_weights_%s"%cid)
+  TopScales = targetmc.Clone(); TopScales.SetName("topme_weights_%s"%cid)
   TopScales.Divide(controlmc); _fOut.WriteTObject(TopScales);
 
-  TopScales_e = targetmc.Clone(); TopScales_e.SetName("topen_weights_%s"%cid)
+  TopScales_e = targetmc.Clone(); TopScales_e.SetName("topem_weights_%s"%cid)
   TopScales_e.Divide(controlmc_e); _fOut.WriteTObject(TopScales_e);
 
   #######################################################################################################
@@ -48,8 +48,8 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
   # TRANSFERFACTORS are what is created above, eg TopScales
 
   CRs = [
-   Channel("singlemuontopModel",      _wspace,out_ws,cid+'_'+model,TopScales),
-   Channel("singleelectrontopModel",  _wspace,out_ws,cid+'_'+model,TopScales_e),
+   Channel("muonelectronModel",      _wspace,out_ws,cid+'_'+model,TopScales),
+   Channel("electronmuonModel",  _wspace,out_ws,cid+'_'+model,TopScales_e),
   ]
 
 
@@ -78,13 +78,13 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
       _fOut.WriteTObject(byb_d)
       cr.add_nuisance_shape('%s_stat_error_%s_bin%d'%(cid,crname2,b-1),_fOut)
 
-  addStatErrs(TopScales,CRs[0],'topmn','singlemuontopModel')
-  addStatErrs(TopScales_e,CRs[1],'topen','singleelectrontopModel')
+  addStatErrs(TopScales,CRs[0],'topme','muonelectron')
+  addStatErrs(TopScales_e,CRs[1],'topem','electronmuon')
 
   #######################################################################################################
 
   cat = Category(model,cid,nam,_fin,_fOut,_wspace,out_ws,_bins,metname,targetmc.GetName(),CRs,diag)
-  #cat.setDependant("zjets","wjetsdependant")  # Can use this to state that the "BASE" of this is already dependant on another process
+  cat.setDependant("wjets","ttbarsignal")  # Can use this to state that the "BASE" of this is already dependant on another process
   # EG if the W->lv in signal is dependant on the Z->vv and then the W->mv is depenant on W->lv, then 
   # give the arguments model,channel name from the config which defines the Z->vv => W->lv map! 
   # Return of course
