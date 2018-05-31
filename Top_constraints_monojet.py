@@ -23,6 +23,8 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
   targetmc     = _fin.Get("signal_ttbar")      # define monimal (MC) of which process this config will model
   controlmc    = _fin.Get("muonelectron_ttbar")
   controlmc_e  = _fin.Get("electronmuon_ttbar")
+  controlmc_wm = _fin.Get("singlemuonw_ttbar")
+  controlmc_we = _fin.Get("singleelectronw_ttbar")
  
 
 
@@ -35,6 +37,11 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
   TopScales_e = targetmc.Clone(); TopScales_e.SetName("topem_weights_%s"%cid)
   TopScales_e.Divide(controlmc_e); _fOut.WriteTObject(TopScales_e);
 
+  TopScales_wm = targetmc.Clone(); TopScales_wm.SetName("wm_weights_%s"%cid)
+  TopScales_wm.Divide(controlmc_wm); _fOut.WriteTObject(TopScales_wm);
+
+  TopScales_we = targetmc.Clone(); TopScales_we.SetName("we_weights_%s"%cid)
+  TopScales_we.Divide(controlmc_we); _fOut.WriteTObject(TopScales_we);
   #######################################################################################################
 
   _bins = []  # take bins from some histogram, can choose anything but this is easy 
@@ -50,6 +57,8 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
   CRs = [
    Channel("muonelectronModel",      _wspace,out_ws,cid+'_'+model,TopScales),
    Channel("electronmuonModel",  _wspace,out_ws,cid+'_'+model,TopScales_e),
+   Channel("singlemuonwModel",  _wspace,out_ws,cid+'_'+model,TopScales_e),
+   Channel("singleelectronwModel",  _wspace,out_ws,cid+'_'+model,TopScales_e),
   ]
 
 
@@ -80,11 +89,13 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
 
   addStatErrs(TopScales,CRs[0],'topme','muonelectron')
   addStatErrs(TopScales_e,CRs[1],'topem','electronmuon')
+  addStatErrs(TopScales_wm,CRs[2],'wm','singlemuonw')
+  addStatErrs(TopScales_we,CRs[3],'we','singleelectronw')
 
   #######################################################################################################
 
   cat = Category(model,cid,nam,_fin,_fOut,_wspace,out_ws,_bins,metname,targetmc.GetName(),CRs,diag)
-  cat.setDependant("wjets","ttbarsignal")  # Can use this to state that the "BASE" of this is already dependant on another process
+  #cat.setDependant("wjets","ttbarsignal")  # Can use this to state that the "BASE" of this is already dependant on another process
   # EG if the W->lv in signal is dependant on the Z->vv and then the W->mv is depenant on W->lv, then 
   # give the arguments model,channel name from the config which defines the Z->vv => W->lv map! 
   # Return of course
