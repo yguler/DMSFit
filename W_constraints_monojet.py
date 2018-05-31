@@ -20,7 +20,6 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
   targetmc     = _fin.Get("signal_wjets")      # define monimal (MC) of which process this config will model
   controlmc    = _fin.Get("singlemuonw_wjets")  # defines in / out acceptance
   controlmc_e  = _fin.Get("singleelectronw_wjets")  # defines in / out acceptance
-  controlmc_tt  = _fin.Get("signal_ttbar")
 
   # Create the transfer factors and save them (not here you can also create systematic variations of these 
   # transfer factors (named with extention _sysname_Up/Down
@@ -29,9 +28,6 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
 
   WScales_e = targetmc.Clone(); WScales_e.SetName("wen_weights_%s"%cid)
   WScales_e.Divide(controlmc_e);  _fOut.WriteTObject(WScales_e) 
-
-  TTWScales = target.Clone(); TTWScales.SetName("ttbar_weights_%s"%cid)
-  TTWScales.Divide(controlmc_tt);  _fOut.WriteTObject(TTWScales)
 
   #######################################################################################################
 
@@ -48,7 +44,6 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
   CRs = [
    Channel("singlemuonwModel",_wspace,out_ws,cid+'_'+model,WScales),
    Channel("singleelectronwModel",_wspace,out_ws,cid+'_'+model,WScales_e),
-   Channel("ttbarsignal",_wspace,out_ws,cid+'_'+model,TTWScales)
   ]
 
   # ############################ USER DEFINED ###########################################################
@@ -81,7 +76,6 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
 
   addStatErrs(WScales,CRs[0],'wmn','singlemuonwModel')
   addStatErrs(WScales_e,CRs[1],'wen','singleelectronwModel')
-  addStatErrs(WZScales,CRs[2],'ttbar','ttbarsignalModel')
 
   #######################################################################################################
 
