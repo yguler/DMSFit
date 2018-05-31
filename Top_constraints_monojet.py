@@ -57,8 +57,8 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
   CRs = [
    Channel("muonelectronModel",      _wspace,out_ws,cid+'_'+model,TopScales),
    Channel("electronmuonModel",  _wspace,out_ws,cid+'_'+model,TopScales_e),
-   Channel("singlemuonwModel",  _wspace,out_ws,cid+'_'+model,TopScales_e),
-   Channel("singleelectronwModel",  _wspace,out_ws,cid+'_'+model,TopScales_e),
+   Channel("singlemuonwModel",  _wspace,out_ws,cid+'_'+model,TopScales_wm),
+   Channel("singleelectronwModel",  _wspace,out_ws,cid+'_'+model,TopScales_we),
   ]
 
 
