@@ -20,8 +20,6 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
   targetmc     = _fin.Get("signal_wjets")      # define monimal (MC) of which process this config will model
   controlmc    = _fin.Get("singlemuonw_wjets")  # defines in / out acceptance
   controlmc_e  = _fin.Get("singleelectronw_wjets")  # defines in / out acceptance
-  controlmc_ttbar    = _fin.Get("singlemuontop_wjets")  # defines in / out acceptance
-  controlmc_ttbar_e    = _fin.Get("singleelectrontop_wjets")  # defines in / out acceptance
 
   # Create the transfer factors and save them (not here you can also create systematic variations of these 
   # transfer factors (named with extention _sysname_Up/Down
@@ -31,11 +29,6 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
   WScales_e = targetmc.Clone(); WScales_e.SetName("wen_weights_%s"%cid)
   WScales_e.Divide(controlmc_e);  _fOut.WriteTObject(WScales_e) 
 
-  WScales_ttbar = targetmc.Clone(); WScales_ttbar.SetName("wtopmn_weights_%s"%cid)
-  WScales_ttbar.Divide(controlmc_ttbar); _fOut.WriteTObject(WScales_ttbar);
-
-  WScales_ttbar_e = targetmc.Clone(); WScales_ttbar_e.SetName("wtopen_weights_%s"%cid)
-  WScales_ttbar_e.Divide(controlmc_ttbar_e); _fOut.WriteTObject(WScales_ttbar_e);
   #######################################################################################################
 
   _bins = []  # take bins from some histogram, can choose anything but this is easy 
@@ -51,10 +44,7 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
   CRs = [
    Channel("singlemuonwModel",_wspace,out_ws,cid+'_'+model,WScales),
    Channel("singleelectronwModel",_wspace,out_ws,cid+'_'+model,WScales_e),
-   Channel("singlemuontopwModel",_wspace,out_ws,cid+'_'+model,WScales_ttbar),
-   Channel("singleelectrontopwModel",_wspace,out_ws,cid+'_'+model,WScales_ttbar_e),
   ]
-
 
   # ############################ USER DEFINED ###########################################################
   # Add systematics in the following, for normalisations use name, relative size (0.01 --> 1%)
@@ -86,46 +76,11 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
 
   addStatErrs(WScales,CRs[0],'wmn','singlemuonwModel')
   addStatErrs(WScales_e,CRs[1],'wen','singleelectronwModel')
-  addStatErrs(WScales_ttbar,CRs[2],'wtopmn','singlemuontopwModel')
-  addStatErrs(WScales_ttbar_e,CRs[3],'wtopen','singleelectrontopwModel')
 
-'''
-  # Statistical uncertainties too!, one per bin 
-  for b in range(targetmc.GetNbinsX()):
-    err = WScales.GetBinError(b+1)
-    #print "ZEYNEP MISSING:", b+1, WScales.GetBinContent(b+1), err
-    if not WScales.GetBinContent(b+1)>0: continue 
-    relerr = err/WScales.GetBinContent(b+1)
-    #print "ZEYNEP MISSING:", b+1, WScales.GetBinContent(b+1), err, relerr
-    if relerr<0.001: continue
-    byb_u = WScales.Clone(); byb_u.SetName("wmn_weights_%s_%s_stat_error_%s_bin%d_Up"%(cid,cid,"singlemuonCR",b))
-    byb_u.SetBinContent(b+1,WScales.GetBinContent(b+1)+err)
-    byb_d = WScales.Clone(); byb_d.SetName("wmn_weights_%s_%s_stat_error_%s_bin%d_Down"%(cid,cid,"singlemuonCR",b))
-    byb_d.SetBinContent(b+1,WScales.GetBinContent(b+1)-err)
-    _fOut.WriteTObject(byb_u)
-    _fOut.WriteTObject(byb_d)
-    print "Adding an error -- ", byb_u.GetName(),err
-    CRs[0].add_nuisance_shape("%s_stat_error_%s_bin%d"%(cid,"singlemuonCR",b),_fOut)
-
-  # Statistical uncertainties too!, one per bin 
-  for b in range(targetmc.GetNbinsX()):
-    err_e = WScales_e.GetBinError(b+1)
-    if not WScales_e.GetBinContent(b+1)>0: continue 
-    relerr_e = err_e/WScales_e.GetBinContent(b+1)
-    if relerr_e<0.001: continue
-    byb_u_e = WScales_e.Clone(); byb_u_e.SetName("wen_weights_%s_%s_stat_error_%s_bin%d_Up"%(cid,cid,"singleelectronCR",b))
-    byb_u_e.SetBinContent(b+1,WScales_e.GetBinContent(b+1)+err_e)
-    byb_d_e = WScales_e.Clone(); byb_d_e.SetName("wen_weights_%s_%s_stat_error_%s_bin%d_Down"%(cid,cid,"singleelectronCR",b))
-    byb_d_e.SetBinContent(b+1,WScales_e.GetBinContent(b+1)-err_e)
-    _fOut.WriteTObject(byb_u_e)
-    _fOut.WriteTObject(byb_d_e)
-    print "Adding an error -- ", byb_u_e.GetName(),err_e
-    CRs[1].add_nuisance_shape("%s_stat_error_%s_bin%d"%(cid,"singleelectronCR",b),_fOut)
-'''
   #######################################################################################################
 
   cat = Category(model,cid,nam,_fin,_fOut,_wspace,out_ws,_bins,metname,targetmc.GetName(),CRs,diag)
-  #cat.setDependant("zjets","wjetssignal")  # Can use this to state that the "BASE" of this is already dependant on another process
+  cat.setDependant("zjets","wjetssignal")  # Can use this to state that the "BASE" of this is already dependant on another process
   # EG if the W->lv in signal is dependant on the Z->vv and then the W->mv is depenant on W->lv, then 
   # give the arguments model,channel name from the config which defines the Z->vv => W->lv map! 
   # Return of course
