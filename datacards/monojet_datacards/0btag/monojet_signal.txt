@@ -24,10 +24,10 @@ stop_Norm      lnN      -         -              1.2       -         -         -
 vv_Norm	       lnN	-         1.2            -         -         -         -         -         
 QCDsig_Norm    lnN	-         -              -         -         2.0       -         -         
 lumi           lnN      1.023     1.023          1.023     -         1.023     -         -
-#btag           shape    1.0       1.0            1.0       -         1.0       -         -       
-ca15_jec       	lnN	1.04      1.04           1.04      -         1.04      -         -
-ecf_tag		lnN	1.07      -              -         -         -         -         -
-#mistag		shape	1.0       1.0            1.0       -         1.0       -         -
+btag           shape    1.0       1.0            1.0       -         1.0       -         -       
+ak4_jec 	lnN 	1.04 	  1.04 		 1.04 	   - 	     1.04      - 	 -
+#ecf_tag	lnN	1.07      -              -         -         -         -         -
+mistag		shape	1.0       1.0            1.0       -         1.0       -         -
 veto_tau	lnN	1.03      1.03           1.03      1.03      1.03      1.03      1.03
 met		lnN	1.05      1.05           1.05      1.05      1.05      1.05      1.05
 trig_met	lnN	1.01      1.01           1.01      -         1.01      -         -
@@ -35,12 +35,12 @@ trig_met	lnN	1.01      1.01           1.01      -         1.01      -         -
 # Parametric uncertainties associated to control regions fits
 0btag_zjetseff param 0.0346 0.00174
 0btag_zlleffSF  extArg 1.0 [0.0,10.0]
-zvvpasssignal rateParam sig zvv (@0*1.0) 0btag_zlleffSF
+zvv0btagsignal rateParam sig_0btag zvv (1.0*@0*@1) btag,mistag
 0btag_wjetseff param 0.0316 0.001264
 0btag_wlneffSF  extArg 1.0 [0.0,10.0]
-wlnpasssignal rateParam sig wjets (@0*1.0) 0btag_wlneffSF
+wln0btagsignal rateParam sig_0btag wjets (1.0*@0*@1) btag,mistag
 ttbareff param 0.1678 0.0001
 ttbareffSF  extArg 1.03 [0.96,1.1]
-ttbarpasssignal rateParam sig ttbar (@0*1.0) ttbareffSF
-#btag param 0.0 1
-#mistag param 0.0 1
+ttbar0btagsignal rateParam sig_0btag ttbar (1.0*@0*@1) btag,mistag
+btag param 0.0 1
+mistag param 0.0 1
