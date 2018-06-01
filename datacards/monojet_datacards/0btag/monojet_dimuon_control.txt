@@ -23,17 +23,16 @@ vv_Norm    lnN		-         -         -         1.2
 lumi   	   lnN          -         1.023     1.023     1.023
 sf_mu      lnN		-         -         -         -
 ak4_jec   lnN		-         1.04      1.04      1.04
-#btag	   shape	-         1.0       1.0       1.0
-#mistag	   shape	-         1.0       1.0       1.0
+btag	   shape	-         1.0       1.0       1.0
+mistag	   shape	-         1.0       1.0       1.0
 veto_tau   lnN		1.03      1.03      1.03      1.03
 met	   lnN		1.05      1.05      1.05      1.05
 trig_met   lnN		-         1.01      1.01      1.01
 track_mu   lnN		-         1.01      1.01      1.01
+zjethf     lnN          0.95      -         -         -
 -------------------------------------------------------------------------------------------------
 # Parametric uncertainties associated to control regions fits
-0btag_zjetseff param 0.0346 0.00174
-0btag_zlleffSF  extArg 1.0 [0.0,10.0]
-llpassdimuon rateParam zmm zll (@0*1.0) 0btag_zlleffSF
+zll0btagdimuon rateParam zmm zll (1.0*@0*@1) btag,mistag
 monojet_0btag_stat_error_dimuonModelCR_bin0 param 0.0 1
 monojet_0btag_stat_error_dimuonModelCR_bin1 param 0.0 1
 monojet_0btag_stat_error_dimuonModelCR_bin2 param 0.0 1
@@ -55,5 +54,5 @@ monojet_0btag_stat_error_dimuonModelCR_bin17 param 0.0 1
 monojet_0btag_stat_error_dimuonModelCR_bin18 param 0.0 1
 monojet_0btag_stat_error_dimuonModelCR_bin19 param 0.0 1
 monojet_0btag_stat_error_dimuonModelCR_bin20 param 0.0 1
-#btag param 0.0 1
-#mistag param 0.0 1
+btag param 0.0 1
+mistag param 0.0 1

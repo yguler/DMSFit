@@ -18,17 +18,12 @@ process			6       7
 rate			1       -1
 ------------------------------------------
 lumi       lnN          1.025   1.025
-ca15_jec   lnN		-    1.04
+ak4_jec   lnN		-    1.04
 veto_tau   lnN		1.03 1.03
 met	   lnN		1.05 1.05
 ---------------------------------------------------------------
 # Parametric uncertainties associated to control regions fits
-gjetseff param 0.0346 0.00174 
-phoeffSF  extArg 1.0 [0.0,10.0]
-gjetspassphoton rateParam pho gjets  (@0*1.0) phoeffSF
-gjetseff param 0.0346 0.00174 
-phoeffSF  extArg 1.0 [0.0,10.0]
-gjetspassphoton rateParam pho gjets  (@0*1.0) phoeffSF
+gjetspassphoton rateParam pho gjets  (1.0*@0*@1) btag,mistag
 mettrig param 0.0 1
-#btag param 0.0 1
-#mistag param 0.0 1
+btag param 0.0 1
+mistag param 0.0 1
