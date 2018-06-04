@@ -5,15 +5,15 @@ jmax * number of processes minus 1
 kmax * number of nuisance parameters
 
 -------------------------------------------------------------------------------------------------
-shapes *         tmn       ../../../combined_model.root combinedws:monojet_0btag_tme_$PROCESS combinedws:monojet_0btag_tme_$PROCESS_$SYSTEMATIC
-shapes data_obs  tmn       ../../../combined_model.root combinedws:monojet_0btag_tme_data
-shapes ttbar     tmn       ../../../combined_model.root combinedws:monojet_0btag_tmeModel_ttbar_model
-#shapes wjets     tmn       ../../../combined_model.root combinedws:monojet_0btag_tmewModel_wjets_model
+shapes *         tme       ../../../combined_model.root combinedws:monojet_0btag_tme_$PROCESS combinedws:monojet_0btag_tme_$PROCESS_$SYSTEMATIC
+shapes data_obs  tme       ../../../combined_model.root combinedws:monojet_0btag_tme_data
+shapes ttbar     tme       ../../../combined_model.root combinedws:monojet_0btag_tmeModel_ttbar_model
+#shapes wjets     tme       ../../../combined_model.root combinedws:monojet_0btag_tmewModel_wjets_model
 -------------------------------------------------------------------------------------------------
-bin 	     tmn
+bin 	     tme
 observation  -1 
 --------------------------------------------------------------------------------------------------------------------------------------------------
-bin			tmn       tmn       tmn       tmn       tmn       tmn
+bin			tme       tme       tme       tme       tme       tme
 process			zll       dibosons  stop      wjets     qcd       ttbar
 process			1         5         3         2         7         4
 rate			-1        -1        -1        -1        -1         1
@@ -34,7 +34,7 @@ zjethf     lnN		0.95	  -	    -	      -		-	  -
 wjethf     lnN	        -	  -	    -	      0.95	-	  -
 -------------------------------------------------------------------------------------------------
 # Parametric uncertainties associated to control regions fits
-ttbar0btagmuon rateParam tmn ttbar (1.0*@0*@1) btag,mistag
+ttbar0btagmuon rateParam tme ttbar (1.0*@0*@1) btag,mistag
 monojet_0btag_stat_error_tmeModelCR_bin0 param 0.0 1
 monojet_0btag_stat_error_tmeModelCR_bin1 param 0.0 1
 monojet_0btag_stat_error_tmeModelCR_bin2 param 0.0 1
