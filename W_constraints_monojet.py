@@ -17,18 +17,41 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
   # but for now this is just kept simple 
   processName  = "WJets" # Give a name of the process being modelled
   metname      = "met"    # Observable variable name 
-  targetmc     = _fin.Get("signal_wjets")      # define monimal (MC) of which process this config will model
-  controlmc    = _fin.Get("singlemuonw_wjets")  # defines in / out acceptance
-  controlmc_e  = _fin.Get("singleelectronw_wjets")  # defines in / out acceptance
+  targetmc0tag     = _fin.Get("signal0tag_wjets")      # define monimal (MC) of which process this config will model
+  controlmc0tag    = _fin.Get("singlemuon0tag_wjets")  # defines in / out acceptance
+  controlmc0tag_e  = _fin.Get("singleelectron0tag_wjets")  # defines in / out acceptance
+  targetmc1tag     = _fin.Get("signal1tag_wjets")      # define monimal (MC) of which process this config will model
+  controlmc1tag    = _fin.Get("singlemuon1tag_wjets")  # defines in / out acceptance
+  controlmc1tag_e  = _fin.Get("singleelectron1tag_wjets")  # defines in / out acceptance
+  targetmc2tag     = _fin.Get("signal2tag_wjets")      # define monimal (MC) of which process this config will model
+  controlmc2tag    = _fin.Get("singlemuon2tag_wjets")  # defines in / out acceptance
+  controlmc2tag_e  = _fin.Get("singleelectron2tag_wjets")  # defines in / out acceptance
 
   # Create the transfer factors and save them (not here you can also create systematic variations of these 
   # transfer factors (named with extention _sysname_Up/Down
-  WScales = targetmc.Clone(); WScales.SetName("wmn_weights_%s"%cid)
-  WScales.Divide(controlmc);  _fOut.WriteTObject(WScales)  
+  WScales0tag = targetmc0tag.Clone(); WScales0tag.SetName("mn0tag_weights_%s"%cid)
+  WScales0tag.Divide(controlmc0tag);  _fOut.WriteTObject(WScales0tag)  
 
-  WScales_e = targetmc.Clone(); WScales_e.SetName("wen_weights_%s"%cid)
-  WScales_e.Divide(controlmc_e);  _fOut.WriteTObject(WScales_e) 
+  WScales0tag_e = targetmc0tag.Clone(); WScales0tag_e.SetName("en0tag_weights_%s"%cid)
+  WScales0tag_e.Divide(controlmc0tag_e);  _fOut.WriteTObject(WScales0tag_e) 
 
+  WScales1tag = targetmc1tag.Clone(); WScales1tag.SetName("mn1tag_weights_%s"%cid)
+  WScales1tag.Divide(controlmc1tag);  _fOut.WriteTObject(WScales1tag)  
+
+  WScales1tag_e = targetmc1tag.Clone(); WScales1tag_e.SetName("en1tag_weights_%s"%cid)
+  WScales1tag_e.Divide(controlmc1tag_e);  _fOut.WriteTObject(WScales1tag_e) 
+
+  WScales2tag = targetmc2tag.Clone(); WScales2tag.SetName("mn2tag_weights_%s"%cid)
+  WScales2tag.Divide(controlmc2tag);  _fOut.WriteTObject(WScales2tag)  
+
+  WScales2tag_e = targetmc2tag.Clone(); WScales2tag_e.SetName("en2tag_weights_%s"%cid)
+  WScales2tag_e.Divide(controlmc2tag_e);  _fOut.WriteTObject(WScales2tag_e) 
+
+  WScales0tagTo1tag = targetmc1tag.Clone(); WScales0tagTo1tag.SetName("mn0tagto1tag_weights_%s"%cid)
+  WScales0tag.Divide(controlmc0tag);  _fOut.WriteTObject(WScales0tagTo1tag)
+
+  WScales0tagTo1tag_e = targetmc1tag.Clone(); WScales0tagTo1tag_e.SetName("en0tagto1tag_weights_%s"%cid)
+  WScales0tagTo1tag_e.Divide(controlmc0tag_e);  _fOut.WriteTObject(WScales0tagTo1tag_e)
   #######################################################################################################
 
   _bins = []  # take bins from some histogram, can choose anything but this is easy 
@@ -42,8 +65,14 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
   # TRANSFERFACTORS are what is created above, eg WScales
 
   CRs = [
-   Channel("singlemuonwModel",_wspace,out_ws,cid+'_'+model,WScales),
-   Channel("singleelectronwModel",_wspace,out_ws,cid+'_'+model,WScales_e),
+   Channel("singlemuon0tagModel",_wspace,out_ws,cid+'_'+model,WScales0tag),
+   Channel("singleelectron0tagModel",_wspace,out_ws,cid+'_'+model,WScales0tag_e),
+   Channel("singlemuon1tagModel",_wspace,out_ws,cid+'_'+model,WScales1tag),
+   Channel("singleelectron1tagModel",_wspace,out_ws,cid+'_'+model,WScales1tag_e),
+   Channel("singlemuon2tagModel",_wspace,out_ws,cid+'_'+model,WScales2tag),
+   Channel("singleelectron2tagModel",_wspace,out_ws,cid+'_'+model,WScales2tag_e),
+   Channel("singlemuon0tagTo1tagModel",_wspace,out_ws,cid+'_'+model,WScales0tagTo1tag),
+   Channel("singleelectron0tagTo1tagModel",_wspace,out_ws,cid+'_'+model,WScales0tagTo1tag_e)
   ]
 
   # ############################ USER DEFINED ###########################################################
@@ -74,9 +103,14 @@ def cmodel(cid,nam,_f,_fOut, out_ws, diag):
       _fOut.WriteTObject(byb_d)
       cr.add_nuisance_shape('%s_stat_error_%s_bin%d'%(cid,crname2,b-1),_fOut)
 
-  addStatErrs(WScales,CRs[0],'wmn','singlemuonwModel')
-  addStatErrs(WScales_e,CRs[1],'wen','singleelectronwModel')
-
+  addStatErrs(WScales0tag,CRs[0],'mn0tag','singlemuon0tagModel')
+  addStatErrs(WScales0tag_e,CRs[1],'en0tag','singleelectron0tagModel')
+  addStatErrs(WScales1tag,CRs[2],'mn1tag','singlemuon1tagModel')
+  addStatErrs(WScales1tag_e,CRs[3],'en1tag','singleelectron1tagModel')
+  addStatErrs(WScales2tag,CRs[4],'mn2tag','singlemuon2tagModel')
+  addStatErrs(WScales2tag_e,CRs[5],'en2tag','singleelectron2tagModel')
+  addStatErrs(WScales0tagTo1Tag,CRs[6],'mn0tagto1tag','singlemuon0tagTo1tagModel')
+  addStatErrs(WScales0tagTo1Tag_e,CRs[7],'en0tagto1tag','singleelectron0tagTo1tagModel')
   #######################################################################################################
 
   cat = Category(model,cid,nam,_fin,_fOut,_wspace,out_ws,_bins,metname,targetmc.GetName(),CRs,diag)
