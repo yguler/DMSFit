@@ -31,6 +31,7 @@ if options.mass: fout = r.TFile("mass"+options.mass+"_"+x.out_file_name,'RECREAT
 
 # Loop and build components for categories
 for cat_id,cat in enumerate(x.categories):
+  print "Now doing category " + cat['name']
   fin  = r.TFile.Open(cat['in_file_name'])
   if options.mass:
     if options.mass in cat['name']: 
