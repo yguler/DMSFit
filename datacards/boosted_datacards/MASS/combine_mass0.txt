@@ -3,54 +3,54 @@ imax 14 number of bins
 jmax 7 number of processes minus 1
 kmax 71 number of nuisance parameters
 ----------------------------------------------------------------------------------------------------------------------------------
-shapes *               mass0_sig       ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_signal_$PROCESS combinedws:boosted_doublebp_mass0_signal_$PROCESS_$SYSTEMATIC
-shapes data_obs        mass0_sig       ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_signal_data
-shapes signal          mass0_sig       ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_signal_XX-SIGNAL-XX_signal combinedws:boosted_doublebp_mass0_signal_XX-SIGNAL-XX_signal_$SYSTEMATIC
-shapes ttbar           mass0_sig       ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_signal_ttbar_model
-shapes wjets           mass0_sig       ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_signal_wjets_model
-shapes zvv             mass0_sig       ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_signal_zjets_model
-shapes *               mass0_sig_fail  ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebf_mass0_signal_$PROCESS combinedws:boosted_doublebf_mass0_signal_$PROCESS_$SYSTEMATIC
-shapes data_obs        mass0_sig_fail  ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebf_mass0_signal_data
-shapes signal          mass0_sig_fail  ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebf_mass0_signal_XX-SIGNAL-XX_signal combinedws:boosted_doublebf_mass0_signal_XX-SIGNAL-XX_signal_$SYSTEMATIC
-shapes ttbar           mass0_sig_fail  ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebf_mass0_signal_ttbar_model
-shapes wjets           mass0_sig_fail  ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebf_mass0_signal_wjets_model
-shapes zvv             mass0_sig_fail  ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebf_mass0_signal_zjets_model
-shapes *               mass0_ten       ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_singleelectrontop_$PROCESS combinedws:boosted_doublebp_mass0_singleelectrontop_$PROCESS_$SYSTEMATIC
-shapes data_obs        mass0_ten       ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_singleelectrontop_data
-shapes ttbar           mass0_ten       ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_singleelectrontopModel_ttbar_model
-shapes *               mass0_ten_fail  ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebf_mass0_singleelectrontop_$PROCESS combinedws:boosted_doublebf_mass0_singleelectrontop_$PROCESS_$SYSTEMATIC
-shapes data_obs        mass0_ten_fail  ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebf_mass0_singleelectrontop_data
-shapes ttbar           mass0_ten_fail  ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebf_mass0_singleelectrontopModel_ttbar_model
-shapes *               mass0_tmn       ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_singlemuontop_$PROCESS combinedws:boosted_doublebp_mass0_singlemuontop_$PROCESS_$SYSTEMATIC
-shapes data_obs        mass0_tmn       ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_singlemuontop_data
-shapes ttbar           mass0_tmn       ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_singlemuontopModel_ttbar_model
-shapes *               mass0_tmn_fail  ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebf_mass0_singlemuontop_$PROCESS combinedws:boosted_doublebf_mass0_singlemuontop_$PROCESS_$SYSTEMATIC
-shapes data_obs        mass0_tmn_fail  ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebf_mass0_singlemuontop_data
-shapes ttbar           mass0_tmn_fail  ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebf_mass0_singlemuontopModel_ttbar_model
-shapes *               mass0_wen       ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_singleelectronw_$PROCESS combinedws:boosted_doublebp_mass0_singleelectronw_$PROCESS_$SYSTEMATIC
-shapes data_obs        mass0_wen       ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_singleelectronw_data
-shapes wjets           mass0_wen       ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_singleelectronwModel_wjets_model
-shapes *               mass0_wen_fail  ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebf_mass0_singleelectronw_$PROCESS combinedws:boosted_doublebf_mass0_singleelectronw_$PROCESS_$SYSTEMATIC
-shapes data_obs        mass0_wen_fail  ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebf_mass0_singleelectronw_data
-shapes wjets           mass0_wen_fail  ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebf_mass0_singleelectronwModel_wjets_model
-shapes *               mass0_wmn       ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_singlemuonw_$PROCESS combinedws:boosted_doublebp_mass0_singlemuonw_$PROCESS_$SYSTEMATIC
-shapes data_obs        mass0_wmn       ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_singlemuonw_data
-shapes wjets           mass0_wmn       ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_singlemuonwModel_wjets_model
-shapes *               mass0_wmn_fail  ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebf_mass0_singlemuonw_$PROCESS combinedws:boosted_doublebf_mass0_singlemuonw_$PROCESS_$SYSTEMATIC
-shapes data_obs        mass0_wmn_fail  ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebf_mass0_singlemuonw_data
-shapes wjets           mass0_wmn_fail  ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebf_mass0_singlemuonwModel_wjets_model
-shapes *               mass0_zee       ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_dielectron_$PROCESS combinedws:boosted_doublebp_mass0_dielectron_$PROCESS_$SYSTEMATIC
-shapes data_obs        mass0_zee       ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_dielectron_data
-shapes zll             mass0_zee       ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_dielectronModel_zjets_model
-shapes *               mass0_zee_fail  ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebf_mass0_dielectron_$PROCESS combinedws:boosted_doublebf_mass0_dielectron_$PROCESS_$SYSTEMATIC
-shapes data_obs        mass0_zee_fail  ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebf_mass0_dielectron_data
-shapes zll             mass0_zee_fail  ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebf_mass0_dielectronModel_zjets_model
-shapes *               mass0_zmm       ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_dimuon_$PROCESS combinedws:boosted_doublebp_mass0_dimuon_$PROCESS_$SYSTEMATIC
-shapes data_obs        mass0_zmm       ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_dimuon_data
-shapes zll             mass0_zmm       ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_dimuonModel_zjets_model
-shapes *               mass0_zmm_fail  ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebf_mass0_dimuon_$PROCESS combinedws:boosted_doublebf_mass0_dimuon_$PROCESS_$SYSTEMATIC
-shapes data_obs        mass0_zmm_fail  ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebf_mass0_dimuon_data
-shapes zll             mass0_zmm_fail  ././../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebf_mass0_dimuonModel_zjets_model
+shapes *               mass0_sig       ././../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_signal_$PROCESS combinedws:boosted_doublebp_mass0_signal_$PROCESS_$SYSTEMATIC
+shapes data_obs        mass0_sig       ././../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_signal_data
+shapes signal          mass0_sig       ././../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_signal_XX-SIGNAL-XX_signal combinedws:boosted_doublebp_mass0_signal_XX-SIGNAL-XX_signal_$SYSTEMATIC
+shapes ttbar           mass0_sig       ././../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_signal_ttbar_model
+shapes wjets           mass0_sig       ././../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_signal_wjets_model
+shapes zvv             mass0_sig       ././../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_signal_zjets_model
+shapes *               mass0_sig_fail  ././../../combined_model_boosted.root combinedws:boosted_doublebf_mass0_signal_$PROCESS combinedws:boosted_doublebf_mass0_signal_$PROCESS_$SYSTEMATIC
+shapes data_obs        mass0_sig_fail  ././../../combined_model_boosted.root combinedws:boosted_doublebf_mass0_signal_data
+shapes signal          mass0_sig_fail  ././../../combined_model_boosted.root combinedws:boosted_doublebf_mass0_signal_XX-SIGNAL-XX_signal combinedws:boosted_doublebf_mass0_signal_XX-SIGNAL-XX_signal_$SYSTEMATIC
+shapes ttbar           mass0_sig_fail  ././../../combined_model_boosted.root combinedws:boosted_doublebf_mass0_signal_ttbar_model
+shapes wjets           mass0_sig_fail  ././../../combined_model_boosted.root combinedws:boosted_doublebf_mass0_signal_wjets_model
+shapes zvv             mass0_sig_fail  ././../../combined_model_boosted.root combinedws:boosted_doublebf_mass0_signal_zjets_model
+shapes *               mass0_ten       ././../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_singleelectrontop_$PROCESS combinedws:boosted_doublebp_mass0_singleelectrontop_$PROCESS_$SYSTEMATIC
+shapes data_obs        mass0_ten       ././../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_singleelectrontop_data
+shapes ttbar           mass0_ten       ././../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_singleelectrontopModel_ttbar_model
+shapes *               mass0_ten_fail  ././../../combined_model_boosted.root combinedws:boosted_doublebf_mass0_singleelectrontop_$PROCESS combinedws:boosted_doublebf_mass0_singleelectrontop_$PROCESS_$SYSTEMATIC
+shapes data_obs        mass0_ten_fail  ././../../combined_model_boosted.root combinedws:boosted_doublebf_mass0_singleelectrontop_data
+shapes ttbar           mass0_ten_fail  ././../../combined_model_boosted.root combinedws:boosted_doublebf_mass0_singleelectrontopModel_ttbar_model
+shapes *               mass0_tmn       ././../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_singlemuontop_$PROCESS combinedws:boosted_doublebp_mass0_singlemuontop_$PROCESS_$SYSTEMATIC
+shapes data_obs        mass0_tmn       ././../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_singlemuontop_data
+shapes ttbar           mass0_tmn       ././../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_singlemuontopModel_ttbar_model
+shapes *               mass0_tmn_fail  ././../../combined_model_boosted.root combinedws:boosted_doublebf_mass0_singlemuontop_$PROCESS combinedws:boosted_doublebf_mass0_singlemuontop_$PROCESS_$SYSTEMATIC
+shapes data_obs        mass0_tmn_fail  ././../../combined_model_boosted.root combinedws:boosted_doublebf_mass0_singlemuontop_data
+shapes ttbar           mass0_tmn_fail  ././../../combined_model_boosted.root combinedws:boosted_doublebf_mass0_singlemuontopModel_ttbar_model
+shapes *               mass0_wen       ././../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_singleelectronw_$PROCESS combinedws:boosted_doublebp_mass0_singleelectronw_$PROCESS_$SYSTEMATIC
+shapes data_obs        mass0_wen       ././../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_singleelectronw_data
+shapes wjets           mass0_wen       ././../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_singleelectronwModel_wjets_model
+shapes *               mass0_wen_fail  ././../../combined_model_boosted.root combinedws:boosted_doublebf_mass0_singleelectronw_$PROCESS combinedws:boosted_doublebf_mass0_singleelectronw_$PROCESS_$SYSTEMATIC
+shapes data_obs        mass0_wen_fail  ././../../combined_model_boosted.root combinedws:boosted_doublebf_mass0_singleelectronw_data
+shapes wjets           mass0_wen_fail  ././../../combined_model_boosted.root combinedws:boosted_doublebf_mass0_singleelectronwModel_wjets_model
+shapes *               mass0_wmn       ././../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_singlemuonw_$PROCESS combinedws:boosted_doublebp_mass0_singlemuonw_$PROCESS_$SYSTEMATIC
+shapes data_obs        mass0_wmn       ././../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_singlemuonw_data
+shapes wjets           mass0_wmn       ././../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_singlemuonwModel_wjets_model
+shapes *               mass0_wmn_fail  ././../../combined_model_boosted.root combinedws:boosted_doublebf_mass0_singlemuonw_$PROCESS combinedws:boosted_doublebf_mass0_singlemuonw_$PROCESS_$SYSTEMATIC
+shapes data_obs        mass0_wmn_fail  ././../../combined_model_boosted.root combinedws:boosted_doublebf_mass0_singlemuonw_data
+shapes wjets           mass0_wmn_fail  ././../../combined_model_boosted.root combinedws:boosted_doublebf_mass0_singlemuonwModel_wjets_model
+shapes *               mass0_zee       ././../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_dielectron_$PROCESS combinedws:boosted_doublebp_mass0_dielectron_$PROCESS_$SYSTEMATIC
+shapes data_obs        mass0_zee       ././../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_dielectron_data
+shapes zll             mass0_zee       ././../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_dielectronModel_zjets_model
+shapes *               mass0_zee_fail  ././../../combined_model_boosted.root combinedws:boosted_doublebf_mass0_dielectron_$PROCESS combinedws:boosted_doublebf_mass0_dielectron_$PROCESS_$SYSTEMATIC
+shapes data_obs        mass0_zee_fail  ././../../combined_model_boosted.root combinedws:boosted_doublebf_mass0_dielectron_data
+shapes zll             mass0_zee_fail  ././../../combined_model_boosted.root combinedws:boosted_doublebf_mass0_dielectronModel_zjets_model
+shapes *               mass0_zmm       ././../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_dimuon_$PROCESS combinedws:boosted_doublebp_mass0_dimuon_$PROCESS_$SYSTEMATIC
+shapes data_obs        mass0_zmm       ././../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_dimuon_data
+shapes zll             mass0_zmm       ././../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_dimuonModel_zjets_model
+shapes *               mass0_zmm_fail  ././../../combined_model_boosted.root combinedws:boosted_doublebf_mass0_dimuon_$PROCESS combinedws:boosted_doublebf_mass0_dimuon_$PROCESS_$SYSTEMATIC
+shapes data_obs        mass0_zmm_fail  ././../../combined_model_boosted.root combinedws:boosted_doublebf_mass0_dimuon_data
+shapes zll             mass0_zmm_fail  ././../../combined_model_boosted.root combinedws:boosted_doublebf_mass0_dimuonModel_zjets_model
 ----------------------------------------------------------------------------------------------------------------------------------
 bin          mass0_zee       mass0_zee_fail  mass0_zmm       mass0_zmm_fail  mass0_sig       mass0_sig_fail  mass0_ten       mass0_ten_fail  mass0_wen       mass0_wen_fail  mass0_tmn       mass0_tmn_fail  mass0_wmn       mass0_wmn_fail
 observation  -1              -1              -1              -1              -1              -1              -1              -1              -1              -1              -1              -1              -1              -1            

@@ -6,9 +6,9 @@ kmax * number of nuisance parameters
 
 -------------------------------------------------------------------------------------------------
 
-shapes data_obs    zmm ./../../combined_model_boosted_missingsignals.root  combinedws:boosted_doublebp_mass1_dimuon_data 
-shapes zll    	   zmm ./../../combined_model_boosted_missingsignals.root  combinedws:boosted_doublebp_mass1_dimuonModel_zjets_model 
-shapes *           zmm ./../../combined_model_boosted_missingsignals.root  combinedws:boosted_doublebp_mass1_dimuon_$PROCESS combinedws:boosted_doublebp_mass1_dimuon_$PROCESS_$SYSTEMATIC
+shapes data_obs    zmm ./../../combined_model_boosted.root  combinedws:boosted_doublebp_mass1_dimuon_data 
+shapes zll    	   zmm ./../../combined_model_boosted.root  combinedws:boosted_doublebp_mass1_dimuonModel_zjets_model 
+shapes *           zmm ./../../combined_model_boosted.root  combinedws:boosted_doublebp_mass1_dimuon_$PROCESS combinedws:boosted_doublebp_mass1_dimuon_$PROCESS_$SYSTEMATIC
 -------------------------------------------------------------------------------------------------
 bin 	     zmm
 observation  -1 

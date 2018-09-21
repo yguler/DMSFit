@@ -5,10 +5,10 @@ jmax * number of processes minus 1
 kmax * number of nuisance parameters
 
 -------------------------------------------------------------------------------------------------
-shapes *         tmn       ./../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_singlemuontop_$PROCESS combinedws:boosted_doublebp_mass0_singlemuontop_$PROCESS_$SYSTEMATIC
-shapes data_obs  tmn       ./../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_singlemuontop_data
-shapes ttbar     tmn       ./../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_singlemuontopModel_ttbar_model
-#shapes wjets     tmn       ./../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass0_singlemuontopwModel_wjets_model
+shapes *         tmn       ./../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_singlemuontop_$PROCESS combinedws:boosted_doublebp_mass0_singlemuontop_$PROCESS_$SYSTEMATIC
+shapes data_obs  tmn       ./../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_singlemuontop_data
+shapes ttbar     tmn       ./../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_singlemuontopModel_ttbar_model
+#shapes wjets     tmn       ./../../combined_model_boosted.root combinedws:boosted_doublebp_mass0_singlemuontopwModel_wjets_model
 -------------------------------------------------------------------------------------------------
 bin 	     tmn
 observation  -1 

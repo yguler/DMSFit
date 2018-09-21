@@ -5,9 +5,9 @@ jmax * number of processes minus 1
 kmax * number of nuisance parameters
 
 -------------------------------------------------------------------------------------------------
-shapes *         zee       ./../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass1_dielectron_$PROCESS combinedws:boosted_doublebp_mass1_dielectron_$PROCESS_$SYSTEMATIC
-shapes data_obs  zee       ./../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass1_dielectron_data
-shapes zll       zee       ./../../combined_model_boosted_missingsignals.root combinedws:boosted_doublebp_mass1_dielectronModel_zjets_model
+shapes *         zee       ./../../combined_model_boosted.root combinedws:boosted_doublebp_mass1_dielectron_$PROCESS combinedws:boosted_doublebp_mass1_dielectron_$PROCESS_$SYSTEMATIC
+shapes data_obs  zee       ./../../combined_model_boosted.root combinedws:boosted_doublebp_mass1_dielectron_data
+shapes zll       zee       ./../../combined_model_boosted.root combinedws:boosted_doublebp_mass1_dielectronModel_zjets_model
 -------------------------------------------------------------------------------------------------
 bin 	     zee
 observation  -1 
