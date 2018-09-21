@@ -29,7 +29,7 @@ for mass in range(0,len(cutstrings)):
     for s in ['doublebp','doublebf']:
         boosted_category[s+str(mass)] = {
              'name':"boosted_"+s+"_mass"+str(mass)
-             ,'in_file_name':"/uscms/home/ahall/nobackup/LPC-DM/CMSSW_8_0_29/src/PandaAnalysis/SuperMonoJet/fitting/boosted/fittingForest_boosted_"+s+".root"
+             ,'in_file_name':"/uscms/home/ahall/nobackup/LPC-DM/CMSSW_8_0_29/src/PandaAnalysis/SuperMonoJet/fitting/boosted_withsignals/fittingForest_boosted_"+s+".root"
             ,"cutstring":cutstrings[mass]
             ,"varstring":["min(999.9999,met)",250,1000]
        	    ,"weightname":"weight"
@@ -117,9 +117,17 @@ for mass in range(0,len(cutstrings)):
                 ,"Data_wen"                  :['singleelectronw','data',0,0]
                 }
              }
+
+
+        with open('/uscms/home/ahall/nobackup/LPC-DM/CMSSW_8_0_29/src/PandaAnalysis/LPC_T3/merging/signals.txt', 'r') as signal_file:
+            for line in signal_file:
+                name = line.rstrip()
+                boosted_category[s+str(mass)]['samples'][name+'_signal'] = ['signal',name+'_signal',1,1]
         if 'doublebf' in s:
             for sample in boosted_category[s+str(mass)]['samples']:
                 if not 'fail' in sample:
                     boosted_category[s+str(mass)]['samples'][sample+'_fail'] = boosted_category[s+str(mass)]['samples'].pop(sample)
+
+                    
         
         categories.append(boosted_category[s+str(mass)])
