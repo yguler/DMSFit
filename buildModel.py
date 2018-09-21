@@ -1,12 +1,6 @@
-
-#!/usr/bin/env python
-from re import sub
 import ROOT as r
 import array, sys
-from sys import argv,exit
-from os import path,getenv
-import os
-from glob import glob
+
 from optparse import OptionParser
 
 parser = OptionParser()
