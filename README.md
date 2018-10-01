@@ -3,12 +3,11 @@
 ## Installation
 
 ```bash
-setenv SCRAM_ARCH slc6_amd64_gcc481
-cmsrel CMSSW_7_1_5
-cd CMSSW_7_1_5/src
+cmsrel CMSSW_8_1_0
+cd CMSSW_8_1_0/src
 cmsenv
 git clone https://github.com/cms-analysis/HiggsAnalysis-CombinedLimit.git HiggsAnalysis/CombinedLimit
-git clone https://gitlab.com/sidnarayanan/MonoXFit MonoX
+git clone https://github.com/LPC-DM/DMSFit.git -b SuperMonojetFit
 scram b -j16
 ```
 
